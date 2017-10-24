@@ -14,6 +14,7 @@ How to use :doc:`ajustador` to fit a NeuroRD model
 To use this to optimize rate constants for other reaction files, do the following steps:
 
 1. create Model with the reaction (or reactions) to optimize
-2. create an array of value versus time with format the same as exp.output.counts().loc[0, :, 'glu', 0]
-3. update pop2= in the fitness definition
-4. update the pop1 - pop2 comparison to match time samples
+2. update the parameters to optimize
+3. To optimize using real data (or a different model), create an array of value versus time with format the same as exp.output.counts().loc[0, :, 'glu', 0]
+4. update pop2= in the fitness definition.  Optionally create an entirely different fitness function
+5. update the pop1 - pop2 comparison to match time samples

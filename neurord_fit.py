@@ -41,18 +41,19 @@ fitness = specie_concentration_fitness(species='glu')
 #print(fitness(sim, exp))
 
 # first fit, just do a single iteraction, default popsize (=8)
+iterations=1
 fit = aju.optimize.Fit('/tmp/out1', exp, model, None, fitness, params,
                        _make_simulation=aju.xml.NeurordSimulation.make,
                        _result_constructor=aju.xml.NeurordResult)
 fit.load()
-fit.do_fit(100, sigma=0.3)
+fit.do_fit(iterations, sigma=0.3)
 
 #to look at parameters:
 popsize=8
 for i in range(popsize):
   print(fit[i].params)
 
-  #to look at centroid [0] or stdev [6] of cloud of good results:
+#to look at centroid [0] or stdev [6] of cloud of good results:
 fit.params.unscale(fit.optimizer.result()[0])
 fit.params.unscale(fit.optimizer.result()[6])
 
