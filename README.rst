@@ -15,6 +15,7 @@ To use this to optimize rate constants for other reaction files, do the followin
 
 1. create Model with the reaction (or reactions) to optimize
 2. update the parameters to optimize
-3. To optimize using real data (or a different model), create an array of value versus time with format the same as exp.output.counts().loc[0, :, 'glu', 0]
-4. update pop2= in the fitness definition.  Optionally create an entirely different fitness function
-5. update the pop1 - pop2 comparison to match time samples
+3. To optimize using real data (or a different model), create an array of value versus time with format the same as exp.output.counts().loc[0, :, 'glu', 0].  I.e., write a new function to read in text or csv files.
+4. interpolate pop1 or pop2 so that the values of each correspond to the same samples in time
+5. Optionally create an entirely different fitness function
+6. Expand fitness function and simulation control to run multiple timulation files / conditions, and evaluate the result of all of them to determine the fitness
