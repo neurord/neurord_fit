@@ -1,0 +1,24 @@
+<InitialConditions>
+
+    <ConcentrationSet>
+    <!-- these apply to everything unless overridden -->
+<!-- many of these are membrane molecules and should be zero except in spines and submembrane -->
+
+       <NanoMolarity specieID="RasGDP"              value="0"     />
+       <NanoMolarity specieID="RasGTP"              value="100"     />
+       <NanoMolarity specieID="RasGTPGap"           value="0"     /> 
+      <!-- Oh Manzerra Kennedy, JBC 2004 assay uses 2 ug syngap and 3 ug CamKII
+	   Walkup JBiolChem2015 uses 286 nM syngap and 3.1 nM CamKII-->
+       <NanoMolarity specieID="SynGap"              value="286"     />
+       <NanoMolarity specieID="pSynGap"             value="0"     />
+       <NanoMolarity specieID="CKpCamCa4"           value="3.1"     />
+       <NanoMolarity specieID="CKpCamCa4SynGap"     value="0"     />
+
+    </ConcentrationSet> 
+
+    <!-- surface concentrations for membrane-bound species. The value attribute for
+         a PicoSD element is the number of picomoles per square metre. For comparison
+         with the volume concentrations, a surface density of 1 picomole/m^2, if spread
+         over a layer 1 micron deep, gives a 1 nanoMolar solution, so to average one
+         particle per square micron you need a PicoSD value of about 1.6. -->
+</InitialConditions>

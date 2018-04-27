@@ -1,0 +1,76 @@
+<ReactionScheme>
+<!-- Molecule species and diffusion constants -->
+    <Specie name="SynGap"                id="SynGap"                kdiff="0"     kdiffunit="mu2/s"/>
+    <Specie name="pSynGap"               id="pSynGap"               kdiff="0"     kdiffunit="mu2/s"/>
+    <Specie name="CKpCamCa4"             id="CKpCamCa4"             kdiff="0"     kdiffunit="mu2/s"/>
+    <Specie name="CKpCamCa4SynGap"       id="CKpCamCa4SynGap"       kdiff="0"     kdiffunit="mu2/s"/>
+    <Specie name="RasGTPGap"             id="RasGTPGap"             kdiff="0"     kdiffunit="mu2/s"/>
+    <Specie name="RasGTP"                id="RasGTP"             kdiff="0"     kdiffunit="mu2/s"/>
+    <Specie name="RasGDP"                id="RasGDP"             kdiff="0"     kdiffunit="mu2/s"/>
+ 
+<!--*************************************************************************
+    Now, the reactions themselves 
+    **************************************************************************-->
+
+<!-- (Phosphorylation of SynGAP by CaMKII) CKpCamCa4+SynGap <-> CKpCamCa4SynGap -> CKpCamCa4+pSynGap -->
+ <Reaction name = "CKpCamCa4+SynGap--CKpCamCa4SynGap" id="CKpCamCa4+SynGap--CKpCamCa4SynGap">
+  <Reactant specieID="CKpCamCa4" />
+  <Reactant specieID="SynGap" />
+  <Product specieID="CKpCamCa4SynGap" />
+
+  <forwardRate>0.0712666</forwardRate>
+  <reverseRate>0.0005661</reverseRate>
+ </Reaction>
+
+ <Reaction name = "CKpCamCa4SynGap--CKpCamCa4+pSynGap" id="CKpCamCa4SynGap--CKpCamCa4+pSynGap">
+  <Reactant specieID="CKpCamCa4SynGap" />
+  <Product specieID="pSynGap" />
+  <Product specieID="CKpCamCa4" />
+
+  <forwardRate>0.017584 </forwardRate>
+  <reverseRate>0 </reverseRate>
+ </Reaction>
+
+ <!--(Inactivation of Ras by SynGAP) RasGTP+SynGap <-> RasGTPGap -> SynGap + RasGDP
+ kcat and km from Walkup JBC 2015-->
+
+<Reaction name = "RasGTP+SynGap--RasGTPGap" id="RasGTP+SynGap--RasGTPGap">
+  <Reactant specieID="RasGTP" />
+  <Reactant specieID="SynGap" />
+  <Product specieID="RasGTPGap" />
+
+  <forwardRate>0.0012e-3</forwardRate>
+  <reverseRate>0.64e-3</reverseRate>
+</Reaction>
+
+<Reaction name = "RasGTPGap--SynGap+RasGDP" id = "RasGTPGap--SynGap+RasGDP">
+  <Reactant specieID="RasGTPGap" />
+  <Product specieID="SynGap" />
+  <Product specieID="RasGDP" />
+
+  <forwardRate>0.12e-3</forwardRate>
+  <reverseRate>0</reverseRate>
+</Reaction >
+
+<!--(Inactivation of Ras by pSynGAP) RasGTP+pSynGap <-> RasGTPGap -> pSynGap + RasGDP
+Activity is 70-90% higher when phosphorylated - Oh Manzerra Kennedy, JBC 2004 -->
+
+<Reaction name = "RasGTP+pSynGap--RasGTPGap" id="RasGTP+pSynGap--RasGTPGap">
+  <Reactant specieID="RasGTP" />
+  <Reactant specieID="pSynGap" />
+  <Product specieID="RasGTPGap" />
+
+  <forwardRate>0.0024e-3</forwardRate>
+  <reverseRate>0.128e-3</reverseRate>
+</Reaction>
+
+<Reaction name = "RasGTPGap--pSynGap+RasGDP" id = "RasGTPGap--pSynGap+RasGDP">
+  <Reactant specieID="RasGTPGap" />
+  <Product specieID="pSynGap" />
+  <Product specieID="RasGDP" />
+
+  <forwardRate>0.24e-3</forwardRate>
+  <reverseRate>0 </reverseRate>
+</Reaction>
+
+</ReactionScheme>
