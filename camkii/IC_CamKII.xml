@@ -1,0 +1,36 @@
+<InitialConditions>
+
+    <ConcentrationSet>
+    <!-- these apply to everything unless overridden -->
+    <!-- many of these are membrane molecules and should be zero except in spines and submembrane -->
+<!-- cytosolic molecules -->
+     	<NanoMolarity specieID="Ca"          value="74"/>
+       	<NanoMolarity specieID="Calbin"       value="144780"/>
+       	<NanoMolarity specieID="CalbinC"      value="15220"/>
+      	<NanoMolarity specieID="Cam"          value="13900"/>
+      	<NanoMolarity specieID="CamCa4"       value="5"/>
+      	<NanoMolarity specieID="CamCa2C"       value="670"/>
+      	<NanoMolarity specieID="CamCa2N"       value="90"/>
+
+	<!-- cytosolic molecules -->
+	<!-- May need to adjust PP1 quantity with PP1 targets to maintain basal CKpCam -->
+        <NanoMolarity specieID="PP1"                  value="990" />
+
+	<NanoMolarity specieID="CK"                   value="18655" />
+        <NanoMolarity specieID="CKCamCa4"             value="345" />
+        <NanoMolarity specieID="CKpCamCa4"            value="980" />
+        <NanoMolarity specieID="CKp"                  value="10" />
+        <NanoMolarity specieID="CKpPP1"               value="0" />
+        <NanoMolarity specieID="CKpCamCa4PP1"         value="10" />
+
+    </ConcentrationSet> 
+
+    <!-- number densities are in particles per cubic micron. You
+         get about one particles per cubic micron in a 1.6 nM solution -->
+
+    <!-- surface concentrations for membrane-bound species. The value attribute for
+         a PicoSD element is the number of picomoles per square metre. For comparison
+         with the volume concentrations, a surface density of 1 picomole/m^2, if spread
+         over a layer 1 micron deep, gives a 1 nanoMolar solution, so to average one
+         particle per square micron you need a PicoSD value of about 1.6. -->
+</InitialConditions>
