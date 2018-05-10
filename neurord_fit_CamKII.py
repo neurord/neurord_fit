@@ -1,7 +1,7 @@
 #How to use :doc:`ajustador` to fit a NeuroRD model
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 '''This demonstration fits a model of CamKII to a previous models results
-   simulate CamCa4 pulses at different frequencies, possibly include models with 6 s of constant stimulation at different CamCa4 concentrations
+   simulate CamCa4 pulses at different frequencies, possibly include models with 6 s of constant stimulation at different CamCa4 concentrations.  May need to inject Ca and CaBuf instead of CamBuf to get better CamCa4 levels.
 
 Next Steps:
 4a. Update fitness function to work with experimental data (important)
@@ -29,7 +29,7 @@ dirname='camkii/'  #location of data and model files.
 #Set of model files that have first part of file name in common.  All included files must be in same directory.
 model_set=dirname+'Model-CKnew-Cahz'
 exp_set=dirname+'Model-CKold-Cahz' #set of data files corresponding to model files; files may contain several molecules
-mol=['CKpCamCa4'] #which molecule(s) to match in optimization
+mol=['CKpCamCa4','CKCamCa4'] #which molecule(s) to match in optimization
 tmpdir='/tmp/'+dirname 
 
 # number of iterations, use 1 for testing
@@ -88,8 +88,10 @@ def specie_sim_concentration_fitness(*, voxel=0, species_list, trial=0):
                     pop2 = aju.nrd_output.nrd_output_conc(measurement.output[j],species)
                 #else - do stuff with waves
                 diff = pop2 - pop1
-                fit_dict[species][stim_set.injection]=float((diff**2).mean()**0.5)
-                fitarray[i][j]=float((diff**2).mean()**0.5)
+                max_mol=np.mean(np.max(pop1.values),np.max(pop2.values))
+                diffnorm = diff if max_mol==0 else diff/max_mol
+                fit_dict[species][stim_set.injection]=float((diffnorm**2).mean()**0.5)
+                fitarray[i][j]=float((diffnorm**2).mean()**0.5)
         fitness=np.mean(fitarray)
         #print ('fitarray', fitarray)
         if full:
