@@ -34,7 +34,7 @@
         <reverseRate>0.0</reverseRate>
     </Reaction>
 
-    <!-- Ca Buffer    Ca + Calbindin <-> calbinCa -->
+    <!-- Ca Buffer    Ca + Calbindin <-> calbinCa Kd=700nM-->
     <Reaction name = "Ca_buffer" id="Ca_Buffer">
         <Reactant specieID="Ca"/>
         <Reactant specieID="Calbin"/>

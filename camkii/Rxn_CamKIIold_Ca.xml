@@ -102,7 +102,7 @@
 
 <!--2a) CKCamCa4 + CKCamCa4 <-> Complex -->
     <Reaction name = "CKCam bind" id="CKCam_bind">
-        <Reactant specieID="CKCamCa4"  p="2"        />
+        <Reactant specieID="CKCamCa4"  power="2"        />
         <Product  specieID="Complex"                />
 
         <forwardRate> 0.0001e-3 </forwardRate>
@@ -142,7 +142,7 @@
     
 <!--4a) Complex + Complex <-> Complex + Pcomplex -->
     <Reaction name = "2Complex bind" id="2Complex_bind">
-        <Reactant specieID="Complex"    p="2"       />
+        <Reactant specieID="Complex"    power="2"       />
         <Product  specieID="Complex"                />
         <Product  specieID="pComplex"               />
 
@@ -154,7 +154,7 @@
     <Reaction name = "ComplpCompl bind" id="ComplpComplx_bind">
         <Reactant specieID="Complex"                />
         <Reactant specieID="pComplex"               />
-        <Product  specieID="pComplex"   p="2"        />
+        <Product  specieID="pComplex"   power="2"        />
 
         <forwardRate> 0.03e-3   </forwardRate>
         <reverseRate> 0         </reverseRate>
