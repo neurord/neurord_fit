@@ -1,7 +1,7 @@
 #How to use :doc:`ajustador` to fit a NeuroRD model
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 '''This demonstration fits a model of CamKII to a previous models results
-   simulate CamCa4 pulses at different frequencies, possibly include models with 6 s of constant stimulation at different CamCa4 concentrations.  May need to inject Ca and CaBuf instead of CamBuf to get better CamCa4 levels.
+   simulate CamCa4 pulses at different frequencies, possibly include models with 6 s of constant stimulation at different CamCa4 concentrations.  May need to inject Ca and CaBuf instead of CamBuf to get better CamCa4 levels.  May need to add more parameters.
 
 Next Steps:
 4a. Update fitness function to work with experimental data (important)
@@ -20,9 +20,8 @@ Next Steps:
 import ajustador as aju
 import numpy as np
 import loadconc
-import tempfile
 from ajustador import drawing
-import glob
+from ajustador.helpers import converge
 
 #model is the xml file that contains the neuroRD model to simulate and adjust parameters
 dirname='camkii/'  #location of data and model files.
@@ -36,6 +35,7 @@ tmpdir='/tmp/'+dirname
 # default popsize=8, use 3 for testing
 iterations=100
 popsize=8
+test_size=25 #for convergence
 
 P = aju.xml.XMLParam
 #list of parameters to change/optimize
@@ -50,29 +50,6 @@ params = aju.optimize.ParamSet(P('CK2_fwd_rate', 0, min=0, max=1e-6, xpath='//Re
 exp = aju.xml.NeurordResult(exp_set)
 
 ###################### fitness_functions - move to nrd_fitness.py in ajustador ################################
-def specie_data_concentration_fitness(*, voxel=0, species_list, trial=0):
-    def fitness(sim, measurement, full=False):
-        #2 is level of multi-index for species, 0 is level of multi-index for voxel
-        fitarray=np.zeros(len(species_list))
-        diffarray={}
-        for i,species in enumerate(species_list):
-            pop1conc=aju.nrd_output.nrd_output_conc(sim.output[0],species)
-            wave1y=pop1conc.values[:,0]
-            wave1x=pop1conc.index
-            pop2 = measurement.waves[species].wave
-            # Note: np.interp(x1,x2,y2) returns values for y2 corresponding to x1 timepoints
-            pop1y=np.interp(pop2.x,wave1x,wave1y)
-            diff = pop2.y - pop1y
-            fitarray[i]=float((diff**2).mean()**0.5)
-            diffarray[species]=diff
-        #print('fit',species_list,fitarray)
-        fitness=np.mean(fitarray)
-        if full:
-            return diffarray
-        else:
-            return fitness
-    return fitness
-
 def specie_sim_concentration_fitness(*, voxel=0, species_list, trial=0):
     def fitness(sim, measurement, full=False):
         fitarray=np.zeros((len(species_list),len(sim.output)))
@@ -83,12 +60,12 @@ def specie_sim_concentration_fitness(*, voxel=0, species_list, trial=0):
                 pop1=aju.nrd_output.nrd_output_conc(stim_set,species)
                 stim_set.__exit__()
                 #pop1 = stim_set.concentrations().loc[voxel, :, species, trial]
-                if isinstance(exp,aju.xml.NeurordResult):
+                if isinstance(measurement,aju.xml.NeurordResult):
                     #pop2 = measurement.output[i].concentrations().loc[voxel, :, species, trial]
                     pop2 = aju.nrd_output.nrd_output_conc(measurement.output[j],species)
                 #else - do stuff with waves
                 diff = pop2 - pop1
-                max_mol=np.mean(np.max(pop1.values),np.max(pop2.values))
+                max_mol=np.mean([np.max(pop1.values),np.max(pop2.values)])
                 diffnorm = diff if max_mol==0 else diff/max_mol
                 fit_dict[species][stim_set.injection]=float((diffnorm**2).mean()**0.5)
                 fitarray[i][j]=float((diffnorm**2).mean()**0.5)
@@ -114,6 +91,7 @@ fit = aju.optimize.Fit(tmpdir, exp, model_set, None, fitness, params,
                        _result_constructor=aju.xml.NeurordResult)
 fit.load()
 fit.do_fit(iterations, popsize=popsize,sigma=0.3)
+mean_dict,std_dict,CV=converge.iterate_fit(fit,test_size,popsize)
 
 ########################################### Done with fitting
 
@@ -125,7 +103,7 @@ print(fit.params.unscale(fit.optimizer.result()[6]))
 
 #to look at fit history
 aju.drawing.plot_history(fit,fit.measurement)
-print('\nprinting fitness functions')
+'''print('\nprinting fitness functions')
 for fititem in fit:
     print('tot:',fit.fitness_func(fititem,fit.measurement),fit.fitness_func(fititem,fit.measurement,full=1))
-    
+'''
