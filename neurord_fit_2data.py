@@ -1,21 +1,23 @@
 #How to use :doc:`ajustador` to fit a NeuroRD model
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 '''This demonstration fits a single reaction model (Model_pSynGap) to data.
+Next steps:
+1. fix plotting the traces in drawing.py - test
+2. Create data set with two conditions - test 
+3. Move fitness function to ajustador.fitnesses - test
 '''
 
 import ajustador as aju
 import numpy as np
 import loadconc
-import tempfile
 from ajustador import drawing
-import glob    
 
 #model is the xml file that contains the neuroRD model to simulate and adjust parameters
-dirname='.'  #where is data stored.  Multiple datafiles allowed
-model='Model_syngap_ras.xml'
-exp_name='walkup_JBC_2015' #name of data file selected from dirname; each file may contain several molecules
+dirname='./walkup/'  #where is data stored.  Multiple datafiles allowed
+model_set=dirname+'Model_syngap_ras'
+exp_name=dirname+'walkup_JBC_2015' #name of data file selected from dirname; each file may contain several molecules
 mol=['pSynGap','RasGDP'] #which molecule(s) to match in optimization
-tmpdir='/tmp/'+exp_name
+tmpdir='/tmp/'+dirname
 
 # number of iterations, use 1 for testing
 # default popsize=8, use 3 for testing
@@ -36,40 +38,40 @@ params = aju.optimize.ParamSet(P('phos_fwd_rate', 0, min=0, max=1, xpath='//Reac
 
 ###################### END CUSTOMIZATION #######################################
 
-#exp is the data to fit  
-csvs = sorted(glob.glob('{}/*.csv'.format(dirname)))
-allexp = [loadconc.CSV_conc(name) for name in csvs]
-allexp={series.name.split('/')[-1].split('.')[0]:series for series in allexp}
-exp=allexp[exp_name]
+exp=loadconc.CSV_conc_set(exp_name)
 
 ###################### fitness_functions - move to nrd_fitness.py in ajustador #######################################
-def nrd_output_conc(sim_output,species):
-    #may need to add specification of trial and/or voxel
-    pop1count = sim_output.counts().xs(species,level=2)
-    volumes,PUVC=sim_output.volumes()
-    tot_vol=np.sum(volumes)
-    pop1conc=pop1count.sum(axis=0,level=1)/tot_vol/PUVC  #sum across voxels, level=0 sums across time
-    return pop1conc
-
 def specie_concentration_fitness(*, voxel=0, species_list, trial=0):
     def fitness(sim, measurement, full=False):
-        #2 is level of multi-index for species, 0 is level of multi-index for voxel
-        fitarray=np.zeros(len(species_list))
-        diffarray={}
+        fitarray=np.zeros((len(species_list),len(sim.output)))
+        fit_dict={}
         for i,species in enumerate(species_list):
-            pop1conc=nrd_output_conc(sim.output[0],species)
-            wave1y=pop1conc.values[:,0]
-            wave1x=pop1conc.index
-            pop2 = measurement.waves[species].wave
-            # Note: np.interp(x1,x2,y2) returns values for y2 corresponding to x1 timepoints
-            pop1y=np.interp(pop2.x,wave1x,wave1y)
-            diff = pop2.y - pop1y
-            fitarray[i]=float((diff**2).mean()**0.5)
-            diffarray[species]=diff
-        #print('fit',species_list,fitarray)
+            fit_dict[species]={}
+            for j,stim_set in enumerate(sim.output):
+                pop1=aju.nrd_output.nrd_output_conc(stim_set,species)
+                stim_set.__exit__()
+                #pop1 = stim_set.concentrations().loc[voxel, :, species, trial]
+                if isinstance(measurement,aju.xml.NeurordResult):
+                    #pop2 = measurement.output[i].concentrations().loc[voxel, :, species, trial]
+                    pop2 = aju.nrd_output.nrd_output_conc(measurement.output[j],species)
+                    diff = pop2 - pop1
+                    max_mol=np.mean([np.max(pop1.values),np.max(pop2.values)])
+                else:  #measurement is experimental data, stored as CSV_conc_set
+                    #print(measurement.data[j].name, type(measurement.data[j]))
+                    pop2 = measurement.data[j].waves[species].wave
+                    wave1y=pop1.values[:,0]
+                    wave1x=pop1.index
+                    # Note: np.interp(x1,x2,y2) returns values for y2 corresponding to x1 timepoints
+                    pop1y=np.interp(pop2.x,wave1x,wave1y)
+                    diff = pop2.y - pop1y
+                    max_mol=np.mean([np.max(pop1.values),np.max(pop2.y)])
+                diffnorm = diff if max_mol==0 else diff/max_mol
+                fit_dict[species][stim_set.injection]=float((diffnorm**2).mean()**0.5)
+                fitarray[i][j]=float((diffnorm**2).mean()**0.5)
         fitness=np.mean(fitarray)
+        #print ('fitarray', fitarray)
         if full:
-            return diffarray
+            return fit_dict
         else:
             return fitness
     return fitness
@@ -83,7 +85,7 @@ fitness = specie_concentration_fitness(species_list=mol)
 #print(fitness(sim2, exp))
 ################
 
-fit = aju.optimize.Fit(tmpdir, exp, model, None, fitness, params,
+fit = aju.optimize.Fit(tmpdir, exp, model_set, None, fitness, params,
                        _make_simulation=aju.xml.NeurordSimulation.make,
                        _result_constructor=aju.xml.NeurordResult)
 fit.load()
@@ -97,20 +99,11 @@ print(fit.param_names())
 print(fit.params.unscale(fit.optimizer.result()[0]))
 print(fit.params.unscale(fit.optimizer.result()[6]))
 
-'''
-NeurordSimulation(<TemporaryDirectory '/tmp/walkup_JBC_2015/tmp6n3kec2r'>, phos_fwd_rate=Param phos_fwd_rate=0.9670002607916861 phos_rev_rate=Param phos_rev_rate=0.21662546285518958 phos_kcat_rate=Param phos_kcat_rate=0.014834835304915908 gap_kf_rate=Param gap_kf_rate=0.33152534037329834 gap_kb_rate=Param gap_kb_rate=0.10923292188031208 gap_kcat_rate=Param gap_kcat_rate=0.5953407411944236 Pgap_kf_rate=Param Pgap_kf_rate=0.11143400862714481 Pgap_kb_rate=Param Pgap_kb_rate=0.9784048303259848 Pgap_kcat_rate=Param Pgap_kcat_rate=0.828326863711133)
-
-vs
- 
->>> fit.param_names()
-['phos_fwd_rate', 'phos_rev_rate', 'phos_kcat_rate', 'gap_kf_rate', 'gap_kb_rate', 'gap_kcat_rate', 'Pgap_kf_rate', 'Pgap_kb_rate', 'Pgap_kcat_rate']
->>> print(fit.params.unscale(fit.optimizer.result()[0]))
-[0.00038412011773427307, 0.22458737290234021, 0.2204795879164167, 0.24461004409872056, 0.2414575433038656, 0.095997833187105863, 0.12906754484253635, 0.092105300850746502, 0.26312214582883092]
-'''
 
 #to look at fit history
 aju.drawing.plot_history(fit,fit.measurement)
 
+'''
 #to plot data (clicking on point in fit history doesn't work because no "injection")
 #if other than last sim is desired, assign that value to fitnum
 def plot_traces(fitX,mollist,fitnum=-1):
@@ -132,4 +125,4 @@ def plot_traces(fitX,mollist,fitnum=-1):
 
 fitnum=-1
 plot_traces(fit,mol)
-
+'''
