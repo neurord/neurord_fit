@@ -1,0 +1,48 @@
+<InitialConditions>
+
+  <ConcentrationSet region="dend">
+    <NanoMolarity specieID="CamCa4"       value="1"/>
+	
+    <NanoMolarity specieID="L"            value="2.0"/>
+    <NanoMolarity specieID="cAMP"         value="100.0"/>
+    <NanoMolarity specieID="Epac1cAMP"    value="50.0"/>
+    <NanoMolarity specieID="Epac1"        value="1950.0"/>
+    <!--4420 PDE4 in 1.5 um with same AC as 6.5u -->
+    <NanoMolarity specieID="PDE4"         value="4130.0"/>
+    <NanoMolarity specieID="pPDE4"        value="181.0"/>
+    <NanoMolarity specieID="PKAcPDE4"     value="0.0"/>
+    <NanoMolarity specieID="PDE4cAMP"     value="101.0"/>
+    <NanoMolarity specieID="pPDE4cAMP"    value="8.0"/>
+    
+    <NanoMolarity specieID="PKAc" value="0.0"/>
+  </ConcentrationSet>
+  
+  <SurfaceDensitySet region="dend">
+    <!--Gtot=3600, Gs2476,Gbg528; Rtot=600-->
+    <PicoSD specieID="R"      value="4.0"/>
+    <PicoSD specieID="LR"     value="0.0"/>
+    <PicoSD specieID="Gs"     value="2934.0"/>
+    <PicoSD specieID="GsR"    value="595.0"/>
+    <PicoSD specieID="LRGs"   value="1.0"/>
+    <PicoSD specieID="pLRGs"  value="0.0"/>
+    <PicoSD specieID="GasGTP" value="4.0"/>
+    <PicoSD specieID="GasGDP" value="0.0"/>
+    <PicoSD specieID="Gbg"    value="70.0"/>
+
+    <PicoSD specieID="PKA"      value="919.0"/>
+    <PicoSD specieID="PKAr"     value="0.0"/>
+    <PicoSD specieID="PKAcAMP2" value="870.0"/>
+    <PicoSD specieID="PKAcAMP4" value="211.0"/>
+    <!--7200 AC in large dend, 6294,400,28,0.452,24; 360 AC5 260,10,90 -->
+    <PicoSD specieID="AC1"               value="6680.0"/>
+    <PicoSD specieID="AC1GasGTP"         value="40.0"/>
+    <PicoSD specieID="AC1CamCa4"         value="28.0"/>
+    <PicoSD specieID="AC1GasCamCa4"      value="0.0"/>
+    <PicoSD specieID="AC1CamCa4ATP"      value="452.0"/>
+    <PicoSD specieID="AC1GasCamCa4ATP"   value="0.0"/>
+    <PicoSD specieID="AC5"               value="334" />
+    <PicoSD specieID="AC5Gas"            value="4" />
+    <PicoSD specieID="AC5GasATP"         value="22" />
+
+</SurfaceDensitySet>
+</InitialConditions>
