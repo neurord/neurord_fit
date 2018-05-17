@@ -1,11 +1,9 @@
 #How to use :doc:`ajustador` to fit a NeuroRD model
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 '''This demonstration fits a model of CamKII to a previous models results
-   simulate CamCa4 pulses at different frequencies, possibly include models with 6 s of constant stimulation at different CamCa4 concentrations.  May need to inject Ca and CaBuf instead of CamBuf to get better CamCa4 levels.  May need to add more parameters.
-
+   simulate CamCa4 pulses at different frequencies, possibly include models with 6 s of constant stimulation at different CamCa4 concentrations.  May need to inject Ca and CaBuf instead of CamBuf to get better CamCa4 levels. 
 Next Steps:
-4a. Update fitness function to work with experimental data (important)
-4b. add fitness function (move nrd_output_conc) and loadconc to ajustador (important) 
+4. Add variation of IC parameters (important)
 
 5. Specify parameters to vary in a separate file (less important)
      possibly with xml specifications similar to the model instead of xpath - see neurord3_params_sims.py and neurord_2params_sims.py
@@ -13,14 +11,11 @@ Next Steps:
 6. add features to fitness function, e.g. peak amplitude and width 
     need to specify stimulus onset time, as with injection current. 
     Attach fitness values to fit object?
-
-7. Add variation of IC parameters (important)
 '''
 
 import ajustador as aju
 import numpy as np
-import loadconc
-from ajustador import drawing
+from ajustador import drawing,loadconc,neurord_fit
 from ajustador.helpers import converge
 
 #model is the xml file that contains the neuroRD model to simulate and adjust parameters
@@ -42,42 +37,14 @@ P = aju.xml.XMLParam
 params = aju.optimize.ParamSet(P('CK2_fwd_rate', 0, min=0, max=1e-6, xpath='//Reaction[@id="CKCam_pow2"]/forwardRate'),
                                P('CK4_fwd_rate', 0, min=0, max=1e-9, xpath='//Reaction[@id="CKCam_pow4"]/forwardRate'),
                                P('CK3_fwd_rate', 0, min=0, max=1e-12, xpath='//Reaction[@id="CKCam_pow3"]/forwardRate'),
-                               P('CK1_CKp2_fwd_rate', 0, min=0, max=1e-9, xpath='//Reaction[@id="CK1_CKpCam_pow2"]/forwardRate'),
-                               P('CK2_CKp1_fwd_rate', 0, min=0, max=1e-9, xpath='//Reaction[@id="CK2_CKpCam_pow1"]/forwardRate'),
-                               P('CK2_CKp2_fwd_rate', 0, min=0, max=1e-12, xpath='//Reaction[@id="CK2_CKpCam_pow2"]/forwardRate'))
+                               P('CK1_CKp2_fwd_rate', 0, min=0, max=1e-6, xpath='//Reaction[@id="CK1_CKpCam_pow2"]/forwardRate'),
+                               P('CK2_CKp1_fwd_rate', 0, min=0, max=1e-6, xpath='//Reaction[@id="CK2_CKpCam_pow1"]/forwardRate'),
+                               P('CK2_CKp2_fwd_rate', 0, min=0, max=1e-9, xpath='//Reaction[@id="CK2_CKpCam_pow2"]/forwardRate'))
 
 ###################### END CUSTOMIZATION #######################################
 exp = aju.xml.NeurordResult(exp_set)
 
-###################### fitness_functions - move to nrd_fitness.py in ajustador ################################
-def specie_sim_concentration_fitness(*, voxel=0, species_list, trial=0):
-    def fitness(sim, measurement, full=False):
-        fitarray=np.zeros((len(species_list),len(sim.output)))
-        fit_dict={}
-        for i,species in enumerate(species_list):
-            fit_dict[species]={}
-            for j,stim_set in enumerate(sim.output):
-                pop1=aju.nrd_output.nrd_output_conc(stim_set,species)
-                stim_set.__exit__()
-                #pop1 = stim_set.concentrations().loc[voxel, :, species, trial]
-                if isinstance(measurement,aju.xml.NeurordResult):
-                    #pop2 = measurement.output[i].concentrations().loc[voxel, :, species, trial]
-                    pop2 = aju.nrd_output.nrd_output_conc(measurement.output[j],species)
-                #else - do stuff with waves
-                diff = pop2 - pop1
-                max_mol=np.mean([np.max(pop1.values),np.max(pop2.values)])
-                diffnorm = diff if max_mol==0 else diff/max_mol
-                fit_dict[species][stim_set.injection]=float((diffnorm**2).mean()**0.5)
-                fitarray[i][j]=float((diffnorm**2).mean()**0.5)
-        fitness=np.mean(fitarray)
-        #print ('fitarray', fitarray)
-        if full:
-            return fit_dict
-        else:
-            return fitness
-    return fitness
-
-fitness = specie_sim_concentration_fitness(species_list=mol)
+fitness = neurord_fit.specie_concentration_fitness(species_list=mol)
 
 ############ Test fitness function
 #model=dirname+'Model-CKnew-Cahz1.xml'
@@ -103,7 +70,3 @@ print(fit.params.unscale(fit.optimizer.result()[6]))
 
 #to look at fit history
 aju.drawing.plot_history(fit,fit.measurement)
-'''print('\nprinting fitness functions')
-for fititem in fit:
-    print('tot:',fit.fitness_func(fititem,fit.measurement),fit.fitness_func(fititem,fit.measurement,full=1))
-'''
