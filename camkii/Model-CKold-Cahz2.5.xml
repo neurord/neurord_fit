@@ -4,29 +4,12 @@
 	 reaction data brought in from other files --> 
 
           <xi:include href="Rxn_CamKIIold.xml" />
-          <xi:include href="../Morph1.5um.xml" />
+          <xi:include href="Morph1.5um.xml" />
 	  <xi:include href="IC_CamKII_noCa.xml" />       
-<StimulationSet>
-  <InjectionStim specieID="CamCa4" injectionSite="pointA">
-        <onset>               0           </onset>
-        <duration>            1           </duration>
-        <rate>             1000           </rate>
-        <period>            400           </period>
-        <end>             40000           </end> 
-  </InjectionStim>
+	  <xi:include href="Stim_camkII_orig_2.5hz.xml" />       
 
-  <InjectionStim specieID="CamBuf" injectionSite="pointA">
-        <onset>              200           </onset>
-        <duration>             1           </duration>
-        <rate>              1000           </rate>
-        <period>             400           </period>
-        <end>              40000           </end> 
-  </InjectionStim>
-</StimulationSet>
-
-    <!--2D means the morphology is interpreted like a flatworm, 3D for
-	roundworms. The 2D case is good for testing as it is eas/Stry to visualize the
-results (also, 3D may not work yet...)  -->
+   <!--2D means the morphology is interpreted like a flatworm, 3D for roundworms. 
+	The 2D case is good for testing as it is easy to visualize the results  -->
     <geometry>          2D           </geometry>
     <depth2D>           2.0          </depth2D>
     <distribution>      BINOMIAL     </distribution>
@@ -37,13 +20,13 @@ results (also, 3D may not work yet...)  -->
 
     <!-- run time for the calculation, milliseconds -->
     <runtime>          40000         </runtime>
-<!-- 100001 -->
+
     <!-- set the seed to get the same spines each time testing -->
     <spineSeed>          123          </spineSeed>
 
     <discretization>
 	<!-- default largest size for elements in bulk volumes (dendrites), microns -->	
-       <defaultMaxElementSide>1.0</defaultMaxElementSide> 
+       <defaultMaxElementSide>4.0</defaultMaxElementSide> 
         
 	<!-- discretization for spines, microns -->
 	<spineDeltaX>   0.1           </spineDeltaX>

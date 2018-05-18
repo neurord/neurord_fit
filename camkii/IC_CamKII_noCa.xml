@@ -1,20 +1,17 @@
 <InitialConditions>
 
-    <ConcentrationSet>
     <!-- these apply to everything unless overridden -->
-    <!-- many of these are membrane molecules and should be zero except in spines and submembrane -->
-<!-- cytosolic molecules -->
-      	<NanoMolarity specieID="CamCa4"       value="0"/>
+    <ConcentrationSet>
+        <NanoMolarity specieID="Camout" value="0"/>
+      	<NanoMolarity specieID="CamCa4" value="0"/>
  
-<!-- cytosolic molecules -->
-        <NanoMolarity specieID="PP1"                  value="0" />
-<!-- Note that 5 uM CamCa4 produces maximal CKpCamCa4, so mus have less CK than CamCa4 -->
-	<NanoMolarity specieID="CK"                   value="1000" />
-        <NanoMolarity specieID="CKCamCa4"             value="0" />
-        <NanoMolarity specieID="CKpCamCa4"            value="0" />
-        <NanoMolarity specieID="CKp"                  value="0" />
-        <NanoMolarity specieID="CKpPP1"               value="0" />
-        <NanoMolarity specieID="CKpCamCa4PP1"         value="0" />
+	<NanoMolarity specieID="CK"             value="20000" />
+        <NanoMolarity specieID="CKCamCa4"       value="0" />
+        <NanoMolarity specieID="CKpCamCa4"      value="0" />
+        <NanoMolarity specieID="CKp"            value="0" />
+        <NanoMolarity specieID="CKpPP1"         value="0" />
+        <NanoMolarity specieID="CKpCamCa4PP1"   value="0" />
+        <NanoMolarity specieID="PP1"            value="0" />
 
     </ConcentrationSet> 
 

@@ -1,0 +1,12 @@
+<Morphology>
+
+    <!--Single compartment : compartmental size vol_tot=4X4X0.5 (8 fL)-->
+    
+
+    <Segment id="seg1" region="dendrite">
+	<start x="1.0" y="3.0" z="0.0" r="2" label="pointA"/>
+	<end x="5.0" y="3.0" z="0.0" r="2"/>
+    </Segment>
+
+</Morphology>
+

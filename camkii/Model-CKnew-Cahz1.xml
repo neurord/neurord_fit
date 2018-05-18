@@ -6,28 +6,10 @@
          <xi:include href="Rxn_CamKIInew.xml" />
           <xi:include href="Morph1.5um.xml" />
 	  <xi:include href="IC_CamKII_noCa.xml" />       
-<StimulationSet>
-<!-- inject quantity to achieve 100 nM CamCa4, vol=12 um^3 -->
-  <InjectionStim specieID="CamCa4" injectionSite="pointA">
-        <onset>               0           </onset>
-        <duration>            1           </duration>
-        <rate>             1000           </rate>
-        <period>           1000           </period>
-        <end>            100000           </end> 
-  </InjectionStim>
+	  <xi:include href="Stim_camkII_orig_1hz.xml" />       
 
-  <InjectionStim specieID="CamBuf" injectionSite="pointA">
-        <onset>              200           </onset>
-        <duration>             1           </duration>
-        <rate>              1000           </rate>
-        <period>            1000           </period>
-        <end>             100000           </end> 
-  </InjectionStim>
-</StimulationSet>
-
-    <!--2D means the morphology is interpreted like a flatworm, 3D for
-	roundworms. The 2D case is good for testing as it is eas/Stry to visualize the
-results (also, 3D may not work yet...)  -->
+    <!--2D means the morphology is interpreted like a flatworm, 3D for roundworms. 
+	The 2D case is good for testing as it is easy to visualize the results  -->
     <geometry>          2D           </geometry>
     <depth2D>           2.0          </depth2D>
     <distribution>      BINOMIAL     </distribution>

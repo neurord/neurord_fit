@@ -1,0 +1,24 @@
+<InitialConditions>
+
+    <!-- these apply to everything unless overridden -->
+    <ConcentrationSet>
+
+        <NanoMolarity specieID="Camout" value="0"/>
+	<NanoMolarity specieID="CamCa4" value="0"/>
+	<NanoMolarity specieID="CK" value="20000"/>
+	<NanoMolarity specieID="CKCam" value="0"/>
+	<NanoMolarity specieID="CKpCam" value="0"/>
+        <NanoMolarity specieID="CKp" value="0"/>
+	<NanoMolarity specieID="Complex" value="0"/>
+	<NanoMolarity specieID="pComplex" value="0"/>
+
+    </ConcentrationSet>
+
+    <!-- should aslo be able to set 'region="abc"' to have a concentration
+	 set apply only to a certain region (not implemented yet) -->
+    <ConcentrationSet region="CamCa4source">
+	<!--NanoMolarity specieID="CK" value="20000" -->
+    </ConcentrationSet>
+
+</InitialConditions>
+

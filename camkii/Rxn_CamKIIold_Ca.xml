@@ -1,18 +1,18 @@
 <ReactionScheme>
-  <!-- Merged, tuned model, with CamKII phos of DagL.
-       Uses higher order reactions for CamKII phosphorylation
-  Compare to DeKoninck & Shulman using single compartment and reading in Ca Stim from file?-->
-<!-- calcium stuff first -->
+
+  <!-- you can specify the units of the diffusion constant. If they are not 
+	 specified they are assumed to be micron^2/second, (microns written "mu" here)
+	 it should understand microns, mm, and m for distances and seconds and ms for times --> 
+    
     <Specie name="Ca"            id="Ca"           kdiff="174.2"    kdiffunit="mu2/s"/>
     <Specie name="Calbin"        id="Calbin"       kdiff="9.25" kdiffunit="mu2/s"/>
     <Specie name="CalbinC"       id="CalbinC"      kdiff="9.25" kdiffunit="mu2/s"/>
     <Specie name="Cam"            id="Cam"           kdiff="11"    kdiffunit="mu2/s"/>
     <Specie name="CamCa2C"        id="CamCa2C"       kdiff="11"    kdiffunit="mu2/s"/>
     <Specie name="CamCa2N"        id="CamCa2N"       kdiff="11"    kdiffunit="mu2/s"/>
+
+    <Specie name="Camout"         id="Camout"        kdiff="11"    kdiffunit="mu2/s"/>
     <Specie name="CamCa4"         id="CamCa4"        kdiff="11"    kdiffunit="mu2/s"/>
-    <Specie name="CamBuf"         id="CamBuf"        kdiff="11"    kdiffunit="mu2/s"/>
- 
-<!-- CaMKII: delete Complex and pComplex and re-do rate  constants when using new NeuroRD version -->
     <Specie name="CK"             id="CK"            kdiff="3.6"   kdiffunit="mu2/s"/>
     <Specie name="CKCamCa4"       id="CKCamCa4"      kdiff="3.6"   kdiffunit="mu2/s"/>
     <Specie name="CKpCamCa4"      id="CKpCamCa4"     kdiff="3.6"   kdiffunit="mu2/s"/>
@@ -23,16 +23,12 @@
     <Specie name="CKpCamCa4PP1"   id="CKpCamCa4PP1"  kdiff="0"     kdiffunit="mu2/s"/>
     <Specie name="PP1"            id="PP1"           kdiff="0"     kdiffunit="mu2/s"/>
 
-<!--*************************************************************************
-    Now, the reactions themselves
-    **************************************************************************-->
-
-<!-- Reaction to lower CamCa4 quickly to zero   -->
-    <Reaction name = "Cam_buffer" id="Cam_Buffer">
+<!-- Cam pump-    CamCa4  <-> Camout -->
+    <Reaction name = "Ca_pump" id="Ca_pump">
         <Reactant specieID="CamCa4"/>
-        <Reactant specieID="CamBuf"/>
+	<Product specieID="Camout"/>
 
-        <forwardRate>0.1</forwardRate>
+        <forwardRate>0.0</forwardRate>
         <reverseRate>0.0</reverseRate>
     </Reaction>
 
@@ -86,7 +82,9 @@
 	<reverseRate>9.1e-3</reverseRate>
     </Reaction>
 
-    <!--XII. *************** CamKII ************* -->
+<!-- New CamKII part -->
+
+    <!-- ms units for reaction rates -->
 
   <!--1) CamCa4 + CK <-> CKCamCa4  -->
     <Reaction name = "CK bind" id="CK_bind">
@@ -95,7 +93,7 @@
         <Product  specieID="CKCamCa4"               />
 
         <forwardRate> 0.01e-3   </forwardRate>
-        <reverseRate> 3e-3      </reverseRate>
+        <reverseRate> 1.5e-3      </reverseRate>
         <!--0.8 from ode file
 	    reverseRate> 0.8e-3      </reverseRate-->
     </Reaction>
@@ -105,7 +103,7 @@
         <Reactant specieID="CKCamCa4"  power="2"        />
         <Product  specieID="Complex"                />
 
-        <forwardRate> 0.0001e-3 </forwardRate>
+        <forwardRate> 4e-8 </forwardRate>
         <reverseRate> 10e-3     </reverseRate>
     </Reaction>
 
@@ -115,7 +113,7 @@
         <Reactant specieID="CKCamCa4"               />
         <Product  specieID="pComplex"               />
 
-        <forwardRate> 0.0001e-3 </forwardRate>
+        <forwardRate> 4e-8 </forwardRate>
         <reverseRate> 10e-3     </reverseRate>
     </Reaction>
 <!--3a) CKpCamCa4 + Complex <-> CKpCamCa4 + pComplex -->

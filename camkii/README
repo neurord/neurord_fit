@@ -1,0 +1,21 @@
+This demonstration fits a model of CamKII to a previous models results
+First, need to verify previous results - phospho CamKII activation versus frequency of CamCa4 pulses
+1. start with original NeuroRD - ensure v2 still gives those results
+   ---> Yes, for 1 hz (2.3 uM) and 2.5hz (6.1 uM), but 4 Hz sitmulation not working
+2. Using reactions from Asia's model were not giving correct results.  Compared to original files
+   a. Old Stim files and CamOut nicely gave 100 nM CamCa4 pulses - replace the current CamBuf approach
+   b. Several rates differed between original and model used by Asia - went back to those rates
+     Kb for Cam binding CK was 3e-3, changed back to 1.5e-3
+     kf for CKCam becoming complex and CKpCam becoming pComplex was 0.1e-6, changed back to 4e-8
+   c. Now, Old NeuroRD (v2) and new NeuroRD (v3) give same results when using same reaction & IC files
+   ---> 1 hz (2.3 uM), 2.5Hz (6.1uM), 4Hz: 8.5 uM
+2. Evaluate effect of smaller morphology - using CKold
+   --> same results, but smaller volume is faster - use it
+    a. depth2D=0.5 (4x4 morph) vol=8 time=6.6s 6.4s 5.9s 
+    b. depth2D=2.0 (1x1 morph) vol=2 time=2.2s 1.9s 1.8s 3:51 (0 Hz)
+3. Update CKnew files using CamOut instead of CamBuf in Rxn, also new stim files and IC
+   ---> Done
+4. Re-do optimization - exclude 0Hz - takes too long.  Instead, after CamKII parameters are optimized, do 0 Hz optimization with parameters of PP1 dephos CKpCamCa4
+5. Possibly include models with 6 s of constant stimulation at different CamCa4 concentrations in original optimization
+
+ 

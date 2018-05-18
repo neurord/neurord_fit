@@ -1,27 +1,24 @@
 <InitialConditions>
 
-    <ConcentrationSet>
     <!-- these apply to everything unless overridden -->
-    <!-- many of these are membrane molecules and should be zero except in spines and submembrane -->
-<!-- cytosolic molecules -->
-     	<NanoMolarity specieID="Ca"          value="71"/>
+    <ConcentrationSet>
+     	<NanoMolarity specieID="Ca"           value="71"/>
        	<NanoMolarity specieID="Calbin"       value="146000"/>
        	<NanoMolarity specieID="CalbinC"      value="14000"/>
       	<NanoMolarity specieID="Cam"          value="14100"/>
-      	<NanoMolarity specieID="CamCa4"       value="5"/>
-      	<NanoMolarity specieID="CamCa2C"       value="570"/>
-      	<NanoMolarity specieID="CamCa2N"       value="90"/>
+      	<NanoMolarity specieID="CamCa2C"      value="570"/>
+      	<NanoMolarity specieID="CamCa2N"      value="90"/>
+        <NanoMolarity specieID="Camout"       value="0"/>
+     	<NanoMolarity specieID="CamCa4"       value="5"/>
 
-	<!-- cytosolic molecules -->
 	<!-- May need to adjust PP1 quantity with PP1 targets to maintain basal CKpCam -->
-        <NanoMolarity specieID="PP1"                  value="1190" />
-
-	<NanoMolarity specieID="CK"                   value="18745" />
-        <NanoMolarity specieID="CKCamCa4"             value="245" />
-        <NanoMolarity specieID="CKpCamCa4"            value="990" />
-        <NanoMolarity specieID="CKp"                  value="10" />
-        <NanoMolarity specieID="CKpPP1"               value="0" />
-        <NanoMolarity specieID="CKpCamCa4PP1"         value="10" />
+	<NanoMolarity specieID="CK"                value="18745" />
+        <NanoMolarity specieID="CKCamCa4"          value="245" />
+        <NanoMolarity specieID="CKpCamCa4"         value="990" />
+        <NanoMolarity specieID="CKp"               value="10" />
+        <NanoMolarity specieID="CKpPP1"            value="0" />
+        <NanoMolarity specieID="CKpCamCa4PP1"      value="10" />
+        <NanoMolarity specieID="PP1"               value="1190" />
 
     </ConcentrationSet> 
 
