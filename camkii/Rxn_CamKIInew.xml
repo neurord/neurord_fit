@@ -45,7 +45,7 @@
         <Product  specieID="CKCamCa4"          />
         <Product  specieID="CKpCamCa4"           />
 
-        <forwardRate> 0e-6 </forwardRate>
+        <forwardRate> 4.7823e-10 </forwardRate>
         <reverseRate> 0e-3     </reverseRate>
     </Reaction>
 
@@ -55,7 +55,7 @@
         <Product  specieID="CKCamCa4"  power="2"         />
         <Product  specieID="CKpCamCa4"           />
 
-        <forwardRate> 2.0e-12 </forwardRate>
+        <forwardRate> 1.3878e-14 </forwardRate>
         <reverseRate> 0e-3     </reverseRate>
     </Reaction>
 
@@ -65,7 +65,7 @@
         <Product  specieID="CKCamCa4"   power="3"         />
         <Product  specieID="CKpCamCa4"           />
 
-        <forwardRate> 13.0e-18 </forwardRate>
+        <forwardRate> 2.4049e-16</forwardRate>
         <reverseRate> 0e-3     </reverseRate>
     </Reaction>
 
@@ -76,7 +76,7 @@
         <Product  specieID="CKCamCa4"           />
         <Product  specieID="CKpCamCa4" power="3"         />
 
-        <forwardRate> 27.1e-18 </forwardRate>
+        <forwardRate> 2.204078e-17 </forwardRate>
         <reverseRate> 0e-3     </reverseRate>
     </Reaction>
 
@@ -86,7 +86,7 @@
         <Reactant specieID="CKCamCa4"         />
         <Product  specieID="CKpCamCa4" power="3"         />
 
-        <forwardRate> 0 </forwardRate>
+        <forwardRate> 1.790557e-13 </forwardRate>
         <reverseRate> 0e-3     </reverseRate>
     </Reaction>
 
@@ -97,7 +97,7 @@
         <Product  specieID="CKpCamCa4" power="2"         />
         <Product  specieID="CKCamCa4"          />
 
-        <forwardRate> 0 </forwardRate>
+        <forwardRate> 1.10780e-12 </forwardRate>
         <reverseRate> 0e-3     </reverseRate>
     </Reaction>
 
@@ -121,7 +121,7 @@
         <Reactant specieID="PP1"/>
 	<Product specieID="CKpPP1"/>
 
-	<forwardRate>0.0039e-6</forwardRate>
+	<forwardRate>0.04e-6</forwardRate>
         <reverseRate>0.34e-3</reverseRate>
     </Reaction>
 
@@ -151,7 +151,7 @@
 	<Product specieID="PP1"/>
         <Product specieID="CKCamCa4"/>
 
-	<forwardRate>0.0086e-3</forwardRate>
+	<forwardRate>0.121e-3</forwardRate>
 	<reverseRate>0</reverseRate>
     </Reaction>
 
