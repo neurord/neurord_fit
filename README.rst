@@ -35,5 +35,6 @@ Examples in the repo
 Planned improvements to optimization
 1. Allow optimization of initial conditions
 2. possibly specify parameters to vary using xml specs similar to the model instead of xpath (see neurord3_params_sims.py and neurord_2params_sims.py for examples)
-3. add features to the fitness function, such as peak amplitude, width, decay time constant (Attach fitness values to fit object?)
-4. specify stimulation onset of model and experimental data separately, and align the waveforms for the fitness function
+3. Allow variations to kcat while constraining Km for enzyme reactions, or vary kb while  constraining KD for bimolecular rxn
+4. add features to the fitness function, such as peak amplitude, width, decay time constant (Attach fitness values to fit object?)
+5. specify stimulation onset of model and experimental data separately, and align the waveforms for the fitness function
