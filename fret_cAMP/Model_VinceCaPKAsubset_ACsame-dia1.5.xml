@@ -8,7 +8,7 @@
 	  <xi:include href="IC_CaPKAsubsetACsame1.5upR.xml" />       
     <StimulationSet>
       <InjectionStim specieID="L" injectionSite="pointA">
-        <onset>           100000        </onset>
+        <onset>           150000        </onset>
         <duration>           200       </duration>
         <rate>               30.0      </rate>
 	<!-- 36.15*1000ms gives 1 uM in 1.5u dia-->
@@ -20,7 +20,7 @@ roundworms. The 2D case is good for testing as it is easy to visualize the
 results (also, 3D may not work yet).  -->
     
     <geometry>          2D           </geometry>
-    <depth2D>           4.0          </depth2D>
+    <depth2D>           1.0          </depth2D>
     <distribution>      BINOMIAL     </distribution>
     <algorithm>         INDEPENDENT  </algorithm>
     <simulationSeed>    245          </simulationSeed>
