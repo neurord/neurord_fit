@@ -2,15 +2,16 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 '''This demonstration fiting a model of signaling pathways from norepinephrine to Epac_FRET and PKA
  to FRET data with two difference conditions, in this case diameter of structure.
+ This also shows optimizing both initial conditions and reaction reates
 Note that stimulation must occur at same time in simulation and experiment
 Necessary to specify time of stimulation, in seconds, both in this file and in Model stimulation file
-Eliminate calcium & calmodulin reactions to speed simulation, and decrease num comps in 6.5u from 9 to 5.
+xEliminate calcium & calmodulin reactions to speed simulation, and decrease num comps in 6.5u from 9 to 5.
 Need to tweak the conversion from model Epac1cAMP to data FRET signal else fitness function won't work.
 '''
 
 import ajustador as aju
 import numpy as np
-from ajustador import drawing,loadconc,neurord_fit
+from ajustador import drawing,loadconc,nrd_fitness
 from ajustador.helpers import converge
 import os
 
@@ -43,10 +44,15 @@ params = aju.optimize.ParamSet(P('phospLRGs_fwd_rate', 0.00125e-3, min=0.0001e-3
                                P('dphospD1R_fwd_rate', 0.003e-3, min=0.0001e-3,max=0.1e-3,xpath='//Reaction[@id="dphospD1R"]/forwardRate'),
                                P('GasGTP_hydrolysis', 0.5e-3, min=0.01e-3,max=5e-3,xpath='//Reaction[@id="GasGTP_disso"]/forwardRate'),
                                P('AC1_GasGTP_GAP', 1e-3, min=0.01e-3,max=10e-3,xpath='//Reaction[@id="AC1_GasGTP_GAP"]/forwardRate'),
-                               P('dphospPDE4_fwd_rate', 0.00625e-3, min=0.0001e-3,max=0.1e-3,xpath='//Reaction[@id="dphospPDE4"]/forwardRate'))
+                               P('dphospPDE4_fwd_rate', 0.00625e-3, min=0.0001e-3,max=0.1e-3,xpath='//Reaction[@id="dphospPDE4"]/forwardRate'),
+                               P('AC1_conc', 1000, min=1,max=10e3,xpath='//PicoSD[@specieID="AC1"]'),
+                               P('AC1CamATP_conc', 200, min=1,max=1000,xpath='//PicoSD[@specieID="AC1CamCa4ATP"]'),
+                               P('AC5_conc', 200, min=1,max=1000,xpath='//PicoSD[@specieID="AC5"]'),
+                               P('PDE4_conc', 1000, min=1,max=10e3,xpath='//NanoMolarity[@specieID="PDE4"]'),
+                               P('pPDE4_conc', 50, min=1,max=1000,xpath='//NanoMolarity[@specieID="pPDE4"]'))
 
 ###################### END CUSTOMIZATION #######################################
-fitness = neurord_fit.specie_concentration_fitness(species_list=mol,start=start_stim,norm=norm_method)
+fitness = nrd_fitness.specie_concentration_fitness(species_list=mol,start=start_stim,norm=norm_method)
 fit = aju.optimize.Fit(tmpdir, exp, model_set, None, fitness, params,
                        _make_simulation=aju.xml.NeurordSimulation.make,
                        _result_constructor=aju.xml.NeurordResult)
@@ -80,6 +86,10 @@ accounted for by lower GasGTP GAP activity?
 10x lower dephos PDE4 - should see great pPDE4 - verify by evaluating files in /tmp/fret
 
 2. Use this test set for optimization of initial conditions.  Allow both AC and PDE4 to vary.
+Alternatively:
+A) if want to constrain AC differently for 1.5 and 6.5, then use PDE4same, and only tune PDE4
+B) if want to constrain PDE4 differently for 1.5 and 6.5, then use ACsame, and only tune AC - problem that AC is membrane, but ACsame means same conc (not same density)
+
 Do results support the AC/PDE4 ratios used for hand-tuning?
 
 3a. Add ability to tune kcat without changing KM - will need to identify the correct binding reaction and modify those

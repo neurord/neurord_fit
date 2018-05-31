@@ -1,32 +1,31 @@
 import ajustador as aju
 import numpy as np
-from ajustador import drawing,neurord_fit
+from ajustador import drawing,nrd_fitness
 
 #name of model xml file for optimization
 model_set='Model_simple'
 #name of experimental data, a simulation file in this case
 exp_set='Model_simple'
 #molecule to compare between 'experiments' and simulations
-mol=['glu']
+mol=['buf','glu']
 #directory to store output during optimization
 tmpdir='/tmp/fit'
 
 # number of iterations, use 1 for testing
-iterations=2#100
+iterations=10#0
 # default popsize=8, use 3 for testing
-popsize=3
+popsize=8
 
-
-#specify parameters to vary
+#specify parameters to vary, either from ReactionScheme or InitialConditions
 P = aju.xml.XMLParam
-params = aju.optimize.ParamSet(P('glu_fwd_rate', 0, min=0, max=1, xpath='//Reaction[@id="glu--glubuf_id"]/forwardRate'),
-                               P('glu_rev_rate', 0, min=0, max=1, xpath='//Reaction[@id="glu--glubuf_id"]/reverseRate'))
+params = aju.optimize.ParamSet(P('buf_conc', 0, min=0, max=1000, xpath='//NanoMolarity[@specieID="buf"]'),
+                               P('glu_rate', 0, min=0, max=1, xpath='//Reaction[@id="glu--glubuf_id"]/forwardRate'))
 
 #this command indicates that experiments are from a previous simulation
 exp = aju.xml.NeurordResult(exp_set)
 ###################### END CUSTOMIZATION #######################################
 
-fitness = neurord_fit.specie_concentration_fitness(species_list=mol)
+fitness = nrd_fitness.specie_concentration_fitness(species_list=mol)
 
 fit = aju.optimize.Fit(tmpdir, exp, model_set, None, fitness, params,
                        _make_simulation=aju.xml.NeurordSimulation.make,
@@ -44,3 +43,5 @@ print(fit.params.unscale(fit.optimizer.result()[6]))
 
 #to look at fit history
 aju.drawing.plot_history(fit,fit.measurement)
+
+#1. edit do_replacments so that parameter value of conc is actually updated

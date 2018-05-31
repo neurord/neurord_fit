@@ -3,7 +3,7 @@
 
 import ajustador as aju
 import numpy as np
-from ajustador import drawing,loadconc,neurord_fit
+from ajustador import drawing,loadconc,nrd_fitness
 from ajustador.helpers import converge
 import os
 
@@ -32,7 +32,7 @@ params = aju.optimize.ParamSet(P('CKpCamPP1_fwd_rate', 4e-9, min=0, max=1e-3, xp
 
 ###################### END CUSTOMIZATION #######################################
 
-fitness = neurord_fit.specie_concentration_fitness(species_list=mol)
+fitness = nrd_fitness.specie_concentration_fitness(species_list=mol)
 
 ############ Test fitness function
 #model=dirname+'Model-CKnew-Cahz1.xml'

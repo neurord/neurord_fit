@@ -5,7 +5,7 @@
 
 import ajustador as aju
 import numpy as np
-from ajustador import drawing,loadconc,neurord_fit
+from ajustador import drawing,loadconc,nrd_fitness
 from ajustador.helpers import converge
 
 #model is the xml file that contains the neuroRD model to simulate and adjust parameters
@@ -37,7 +37,7 @@ params = aju.optimize.ParamSet(P('phos_fwd_rate', 0, min=0, max=1, xpath='//Reac
 
 exp=loadconc.CSV_conc_set(exp_name)
 
-fitness = neurord_fit.specie_concentration_fitness(species_list=mol)
+fitness = nrd_fitness.specie_concentration_fitness(species_list=mol)
 
 ############ Test fitness function
 #sim = aju.xml.NeurordSimulation('/tmp', model=model, params=params)

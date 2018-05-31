@@ -10,13 +10,15 @@ import os
 dirname='camkii/'  #where data and model file are stored.  Can be different than current directory. Multiple datafiles allowed
 #Set of model files that have first part of file name in common.  All included files must be in same directory.
 model_set='Model-CKnew-Cahz'
-exp_set='Model-CKold_1.5ux2-Cahz' #set of data files corresponding to model files; files may contain several molecules
-mol=['CKpCamCa4','CKCamCa4'] #which molecule(s) to match in optimization
+exp_set='CamKII_Hz' #set of data files corresponding to model files; files may contain several molecules
+mol=['CKpCamCa4'] #which molecule(s) to match in optimization
 tmpdir='/tmp/'+dirname 
 os.chdir(dirname)
 
-#this command indicates that experiments are from a previous simulation
-exp = aju.xml.NeurordResult(exp_set)
+# Use aju.xml.NeurordResult if data to match are from a previous simulation
+# Use loadconc.CSV_conc_set if data to match are csv format (typically from wet experiments)
+exp = loadconc.CSV_conc_set(exp_set)
+#exp=aju.xml.NeurordResult(exp_set)
 
 # number of iterations, use 1 for testing
 # default popsize=8, use 3 for testing
