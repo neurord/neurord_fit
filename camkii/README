@@ -67,5 +67,10 @@ Since CKpCamCa4 is still drifting up slightly, could try simulation with higher 
 RESULTS: 2x kf is too high - CKpCamCa4 drifts down from 1 uM
          1.5x kf is perfect - CKpCamCa4 remains at 1 uM for 900 sec.
 
-C. Develop stim files for item 5 above and repeat entire process - are results better?
+C. Develop stim files for item 5 above and repeat entire process
+>>>>>>>> Files ready to go.  Simulations of 6s protocols using current parameters - quite good.
+Repeat optimization using this data, start from values of 0.
+RESULTS:
+Repeat optimization using this data, start from previous best values (from h5 opt)
+
 D. Repeat best simulations with different random seed - are parameters different?
