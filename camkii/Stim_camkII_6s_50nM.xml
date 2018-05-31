@@ -1,0 +1,17 @@
+ <StimulationSet>
+
+    <!-- the injectionSite must match a regionLabel deefined in the morphology -->
+<!-- 6s of constant Camca4 -->
+<InjectionStim specieID="CamCa4" injectionSite="pointA">
+        <onset>10</onset>
+	<duration>6000</duration>
+	<rate>30</rate>
+  </InjectionStim>
+
+<InjectionStim specieID="CamCa4" injectionSite="pointA">
+        <onset>10</onset>
+	<duration>40</duration>
+	<rate>4</rate>
+  </InjectionStim>
+
+</StimulationSet>
