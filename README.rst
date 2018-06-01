@@ -15,14 +15,19 @@ To use this to optimize rate constants for other reaction files, do the followin
 
 1. create NeuroRD model with the reaction (or reactions) to optimize
 2. update the parameters to optimize (params= ...)
-3. To optimize using real data (or a different model), csv formatted file with molecule concentration or percent change
-   a. use exp=loadconc.CSV_conc_set(exp_name) for loading experimental data
-   b. specify
+3. To optimize using real data (or a different model), csv formatted file with molecule concentration or percent change.
+   a. data format.
+      - 1st column is time, either ms, sec or min.  If sec or min, indicate units separated by space from "Time"
+      - additional columns contain concentration or FRET.  header is name of molecule to compare to in simulation
+	+ If concentration is mMolar or uMolar, indicate units separated by space from molecule name (default is nanoMolar)
+	+ if Fret, can scale concentration by a user specified value.  Specify units as % and indicate scale factor separated by space from units
+   b. use exp=loadconc.CSV_conc_set(exp_name) for loading experimental data
+   c. specify
           norm_method='percent'
 	  start_stim=<value>
       for matching simulations to percent change, and indicating the time of stimulation.
       The time between 0 and stim_start will be used for baseline (denominator for percent change)
-   c. specify fitness=nrd_fitness.specie_concentration_fitness(species_list=mol,start=start_stim,norm=norm_method)
+   d. specify fitness=nrd_fitness.specie_concentration_fitness(species_list=mol,start=start_stim,norm=norm_method)
 4. fitness function can match a set of molecules - specify mol=['mol1','mol2']
 5. Optimization can match a set of different model and experimental files.  Set of files should have 1st part of filename in common, and differ only by the suffix.  The model files need to have matching suffixes, e.g.
    model_stim1.xml, model_stim2.xml, exp_stim1.csv, exp_stim2.csv
