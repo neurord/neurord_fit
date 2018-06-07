@@ -86,7 +86,8 @@
         <Reactant specieID="CKCamCa4"         />
         <Product  specieID="CKpCamCa4" power="3"         />
 
-        <forwardRate> 1.790557e-13 </forwardRate>
+        <!--forwardRate> 1.790557e-13 </forwardRate-->
+        <forwardRate> 0e-3 </forwardRate>
         <reverseRate> 0e-3     </reverseRate>
     </Reaction>
 
@@ -97,7 +98,8 @@
         <Product  specieID="CKpCamCa4" power="2"         />
         <Product  specieID="CKCamCa4"          />
 
-        <forwardRate> 1.10780e-12 </forwardRate>
+        <!--forwardRate> 1.10780e-12 </forwardRate-->
+        <forwardRate> 0e-3 </forwardRate>
         <reverseRate> 0e-3     </reverseRate>
     </Reaction>
 
