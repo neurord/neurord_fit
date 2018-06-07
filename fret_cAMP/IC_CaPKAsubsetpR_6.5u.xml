@@ -1,24 +1,14 @@
 <InitialConditions>
 
   <ConcentrationSet region="dend">
-    <!-- calcium interacting proteins -->
-        <NanoMolarity specieID="Ca"           value="70"/>
-	<!-- total calbindin = 160 uM -->
-        <NanoMolarity specieID="Calbin"       value="159980"/>
-        <NanoMolarity specieID="CalbinC"      value="20"/>
-
-	<!-- total calmodulin = 4100 nM (divide AC bound by 3.25)-->
-      	<NanoMolarity specieID="Cam"          value="3590"/>
-      	<NanoMolarity specieID="CamCa2C"      value="130"/>
-      	<NanoMolarity specieID="CamCa2N"      value="20"/>
-      	<NanoMolarity specieID="CamCa4"       value="0"/>
+    <NanoMolarity specieID="CamCa4"       value="1"/>
 	
     <NanoMolarity specieID="L"            value="2.0"/>
     <NanoMolarity specieID="cAMP"         value="89.0"/>
     <NanoMolarity specieID="Epac1cAMP"    value="35.0"/>
     <NanoMolarity specieID="Epac1"        value="1965.0"/>
     <!--1100 PDE4 in both size morphologies -->
-    <NanoMolarity specieID="PDE4"         value="1010"/>"/>
+    <NanoMolarity specieID="PDE4"         value="1010"/>
     <NanoMolarity specieID="pPDE4"        value="60.0"/>
     <NanoMolarity specieID="PKAcPDE4"     value="0.0"/>
     <NanoMolarity specieID="PDE4cAMP"     value="30.0"/>

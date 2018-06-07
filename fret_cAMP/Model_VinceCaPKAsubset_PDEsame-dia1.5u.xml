@@ -5,11 +5,11 @@
 
           <xi:include href="Rxn_CaPKAsubsetpR.xml" />
           <xi:include href="Morph1.5um.xml" />
-	  <xi:include href="IC_CaPKAsubsetpR_1.5u.xml" />       
-          <xi:include href="IO_CaPKAsubsetpR.xml" />
+	  <xi:include href="IC_CaPKAsubsetpR_1.5u.xml" />
+
     <StimulationSet>
       <InjectionStim specieID="L" injectionSite="pointA">
-        <onset>           100000        </onset>
+        <onset>           150000        </onset>
         <duration>           200       </duration>
         <rate>               30.0    </rate>
 	<!-- 36.15*1000ms gives 1 uM in 1.5u dia-->
@@ -21,7 +21,7 @@ roundworms. The 2D case is good for testing as it is easy to visualize the
 results (also, 3D may not work yet).  -->
     
     <geometry>          2D           </geometry>
-    <depth2D>           4.0          </depth2D>
+    <depth2D>           1.0          </depth2D>
     <distribution>      BINOMIAL     </distribution>
     <algorithm>         INDEPENDENT  </algorithm>
     <simulationSeed>    245          </simulationSeed>
@@ -50,15 +50,18 @@ results (also, 3D may not work yet).  -->
     </discretization>
 
     <!-- The timestep used in fixed step calculations, in milliseconds -->
-    <fixedStepDt>0.5</fixedStepDt>
+    <fixedStepDt>0.005</fixedStepDt>
 
     <!-- Epsilong for adaptive -->
-    <tolerance>0.005</tolerance>
+    <tolerance>0.01</tolerance>
 
     <outputInterval>100</outputInterval>
 
-    <!-- Calculation types include GRID_STEPPED_STOCHASTIC and GRID_STEPPED_CONTINUOUS for 
-	 reaction-diffusion systems. Single mixed pool calculations should be listed here too (TODO) -->
+    <!-- Calculation types include
+	 GRID_STEPPED_STOCHASTIC,
+	 GRID_ADAPTIVE and
+	 GRID_STEPPED_CONTINUOUS for 
+	 reaction-diffusion systems. -->
     <calculation>GRID_ADAPTIVE</calculation>
 
 </SDRun>
