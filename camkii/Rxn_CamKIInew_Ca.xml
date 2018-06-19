@@ -101,7 +101,7 @@
         <Product  specieID="CKCamCa4"          />
         <Product  specieID="CKpCamCa4"           />
 
-        <forwardRate> 4.7823e-10 </forwardRate>
+        <forwardRate> 3.83119676007e-10 </forwardRate>
         <reverseRate> 0e-3     </reverseRate>
     </Reaction>
 
@@ -111,7 +111,7 @@
         <Product  specieID="CKCamCa4"  power="2"         />
         <Product  specieID="CKpCamCa4"           />
 
-        <forwardRate> 1.3878e-14 </forwardRate>
+        <forwardRate> 3.55792141502e-13 </forwardRate>
         <reverseRate> 0e-3     </reverseRate>
     </Reaction>
 
@@ -121,7 +121,7 @@
         <Product  specieID="CKCamCa4"   power="3"         />
         <Product  specieID="CKpCamCa4"           />
 
-        <forwardRate> 2.4049e-16</forwardRate>
+        <forwardRate> 2.23694832822e-16</forwardRate>
         <reverseRate> 0e-3     </reverseRate>
     </Reaction>
 
@@ -132,7 +132,7 @@
         <Product  specieID="CKCamCa4"           />
         <Product  specieID="CKpCamCa4" power="3"         />
 
-        <forwardRate> 2.204078e-17 </forwardRate>
+        <forwardRate> 1.10450093247e-18 </forwardRate>
         <reverseRate> 0e-3     </reverseRate>
     </Reaction>
 
@@ -142,7 +142,7 @@
         <Reactant specieID="CKCamCa4"         />
         <Product  specieID="CKpCamCa4" power="3"         />
 
-        <forwardRate> 1.790557e-13 </forwardRate>
+        <forwardRate> 3.0330636368e-13 </forwardRate>
         <reverseRate> 0e-3     </reverseRate>
     </Reaction>
 
@@ -153,7 +153,7 @@
         <Product  specieID="CKpCamCa4" power="2"         />
         <Product  specieID="CKCamCa4"          />
 
-        <forwardRate> 1.10780e-12 </forwardRate>
+        <forwardRate> 2.39399544094e-13 </forwardRate>
         <reverseRate> 0e-3     </reverseRate>
     </Reaction>
 
