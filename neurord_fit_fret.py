@@ -21,19 +21,21 @@ dirname='fret_cAMP/'  #where data and model file are stored.  Can be different t
 model_set='Model_VinceCaPKAsubset_ACsame-dia'
 exp_name='FretPercent' #name of data file selected from dirname; each file may contain several molecules
 mol=['Epac1cAMP'] #which molecule(s) to match in optimization
-tmpdir='/tmp/AC_PDEsame_'+dirname
+tmpdir='/tmp/tmp'#AC_PDEsame_'+dirname
 start_stim=140  #time of onset of stimulation, in seconds; should be able to extract from model files; stim time must match data
 norm_method='percent' #convert molecule concentration into a percent change from baseline.  Use for comparing to FRET data
 
 # number of iterations, use 1 for testing
 # default popsize=8, use 3 for testing
-iterations=50
-popsize=6 # reduce from 8 to avoid saturating processors for longer neurord simulations
-test_size=25
+iterations=1#50
+popsize=3#6 # reduce from 8 to avoid saturating processors for longer neurord simulations
+test_size=0#25
 
 os.chdir(dirname)
 #this command indicates that experimental data are concentration in csv formatted files
-exp=loadconc.CSV_conc_set(exp_name)
+exp=loadconc.CSV_conc_set(exp_name,stim_time=start_stim)
+
+#exp = aju.xml.NeurordResult(model_set,stim_time=start_stim)
 
 P = aju.xml.XMLParam
 #list of parameters to change/optimize
@@ -45,29 +47,28 @@ params = aju.optimize.ParamSet(P('phospLRGs_fwd_rate', 0.00125e-3, min=0.0001e-3
                                P('GasGTP_hydrolysis', 0.5e-3, min=0.01e-3,max=5e-3,xpath='//Reaction[@id="GasGTP_disso"]/forwardRate'),
                                P('AC1_GasGTP_GAP', 1e-3, min=0.01e-3,max=10e-3,xpath='//Reaction[@id="AC1_GasGTP_GAP"]/forwardRate'),
                                P('dphospPDE4_fwd_rate', 0.00625e-3, min=0.0001e-3,max=0.1e-3,xpath='//Reaction[@id="dphospPDE4"]/forwardRate'),
-                               P('AC1_conc', 1000, min=1,max=10e3,xpath='//PicoSD[@specieID="AC1"]'),
-                               P('AC1CamATP_conc', 200, min=1,max=1000,xpath='//PicoSD[@specieID="AC1CamCa4ATP"]'),
-                               P('AC5_conc', 200, min=1,max=1000,xpath='//PicoSD[@specieID="AC5"]'),
+                               P('AC1_dens', 1000, min=1,max=10e3,xpath='//PicoSD[@specieID="AC1"]'),
+                               P('AC1CamATP_dens', 200, min=1,max=1000,xpath='//PicoSD[@specieID="AC1CamCa4ATP"]'),
+                               P('AC5_dens', 200, min=1,max=1000,xpath='//PicoSD[@specieID="AC5"]'),
                                P('PDE4_conc', 1000, min=1,max=10e3,xpath='//NanoMolarity[@specieID="PDE4"]'),
                                P('pPDE4_conc', 50, min=1,max=1000,xpath='//NanoMolarity[@specieID="pPDE4"]'))
 
 ###################### END CUSTOMIZATION #######################################
-fitness = nrd_fitness.specie_concentration_fitness(species_list=mol,start=start_stim,norm=norm_method)
+fitness = nrd_fitness.specie_concentration_fitness(species_list=mol,norm=norm_method)
 fit = aju.optimize.Fit(tmpdir, exp, model_set, None, fitness, params,
                        _make_simulation=aju.xml.NeurordSimulation.make,
                        _result_constructor=aju.xml.NeurordResult)
 fit.load()
 #fit.do_fit(iterations, popsize=popsize,sigma=0.3)
 fit.do_fit(iterations, popsize=popsize,seed=62839)
-mean_dict,std_dict,CV=converge.iterate_fit(fit,test_size,popsize)
+#mean_dict,std_dict,CV=converge.iterate_fit(fit,test_size,popsize)
 
 ########################################### Done with fitting, look at results
 
 #to look at fit history
-aju.drawing.plot_history(fit,fit.measurement)
+aju.drawing.plot_history(fit,fit.measurement,Norm='percent')
 
 #to look at centroid [0] or stdev [6] of cloud of good results:
-#to recall names of parameters
 for i,p in enumerate(fit.params.unscale(fit.optimizer.result()[0])):
     print(fit.param_names()[i],'=',p, '+/-', fit.params.unscale(fit.optimizer.result()[6])[i])
 
@@ -144,7 +145,10 @@ pPDE4_conc = 70.8118670051 +/- 1.71918861
 
 Do results support the AC/PDE4 ratios used for hand-tuning?
 
-3a. Add ability to tune kcat without changing KM - will need to identify the correct binding reaction and modify those
-3b. Add ability to constrain Kb >= 4kcat
+
+4. Repeat above with different scaling
+
+5a. Add ability to tune kcat without changing KM - will need to identify the correct binding reaction and modify those
+5b. Add ability to constrain Kb >= 4kcat
 Use this model to test above.
 '''
