@@ -15,10 +15,8 @@ mol=['CKpCamCa4'] #which molecule(s) to match in optimization
 tmpdir='/tmp/st0_4params'+dirname 
 os.chdir(dirname)
 
-# Use aju.xml.NeurordResult if data to match are from a previous simulation
 # Use loadconc.CSV_conc_set if data to match are csv format (typically from wet experiments)
 exp = loadconc.CSV_conc_set(exp_set)
-#exp=aju.xml.NeurordResult(exp_set)
 
 # number of iterations, use 1 for testing
 # default popsize=8, use 3 for testing
@@ -88,12 +86,12 @@ CK3_fwd_rate = 3.7001965304e-13 +/- 5.81743571691e-15
 CK1_CKp2_fwd_rate = 5.60003015714e-13 +/- 4.76116161324e-13 - variance as large as value
 CK2_CKp2_fwd_rate = 1.16831852933e-17 +/- 4.56376338119e-16
 
-Next: opt to data, exclude CK1_CKp2_fwd_rate (set = 0)
+Next: opt to data, exclude CK1_CKp2_fwd_rate (set = 0)  - 4 parameters
 CK2_fwd_rate = 7.89325641207e-10 +/- 1.20234737985e-12
 CK4_fwd_rate = 7.50031075336e-17 +/- 1.92187649653e-19
 CK3_fwd_rate = 9.66232673723e-13 +/- 3.90664628821e-16
 CK2_CKp2_fwd_rate = 1.07481418709e-16 +/- 1.15866464049e-17
 
-Next, using 4 or 5 param results, repeat PP1 optimization (update Rxn_CamKIInew_Ca.xml)
+Next, using 4 and 6 param results, repeat PP1 optimization (update Rxn_CamKIInew_Ca.xml)
 
 '''

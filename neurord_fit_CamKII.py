@@ -4,13 +4,13 @@
 import ajustador as aju
 import numpy as np
 from ajustador import drawing,loadconc,nrd_fitness
-from ajustador.helpers import converge
+from ajustador.helpers import converge,save_params
 import os
 
 dirname='camkii/'  #where data and model file are stored.  Can be different than current directory. Multiple datafiles allowed
 #Set of model files that have first part of file name in common.  All included files must be in same directory.
 model_set='Model-CKnew-Cahz'
-exp_set='Model-CKold_1.5ux2-Cahz' #set of data files corresponding to model files; files may contain several molecules
+exp_set='Model-CKold_1.5ux2-Cahz' #set of previous simulation files to match
 mol=['CKpCamCa4','CKCamCa4'] #which molecule(s) to match in optimization
 tmpdir='/tmp/'+dirname 
 os.chdir(dirname)
@@ -53,11 +53,10 @@ mean_dict,std_dict,CV=converge.iterate_fit(fit,test_size,popsize)
 
 ########################################### Done with fitting
 
-#to look at centroid [0] or stdev [6] of cloud of good results:
-#to recall names of parameters
-print(fit.param_names())
-print(fit.params.unscale(fit.optimizer.result()[0]))
-print(fit.params.unscale(fit.optimizer.result()[6]))
-
 #to look at fit history
 aju.drawing.plot_history(fit,fit.measurement)
+
+#print centroid [0] and stdev [6] of cloud of good results:
+for i,p in enumerate(fit.params.unscale(fit.optimizer.result()[0])):
+    print(fit.param_names()[i],'=',p, '+/-', fit.params.unscale(fit.optimizer.result()[6])[i])
+
