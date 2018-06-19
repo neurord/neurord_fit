@@ -7,19 +7,23 @@ import ajustador as aju
 import numpy as np
 from ajustador import drawing,loadconc,nrd_fitness
 from ajustador.helpers import converge
+import os
 
 #model is the xml file that contains the neuroRD model to simulate and adjust parameters
-dirname='syngap_ras/'  #where is data stored.  Multiple datafiles allowed
-model_set=dirname+'Model_syngap_ras'
-exp_name=dirname+'walkup_JBC_2015' #name of data file selected from dirname; each file may contain several molecules
+dirname='syngap_ras/'  #where data and model are stored.  Multiple datafiles allowed
+model_set='Model_syngap_ras'
+exp_name='walkup_JBC_2015' #name of data file selected from dirname; each file may contain several molecules
 mol=['pSynGap','RasGDP'] #which molecule(s) to match in optimization
 tmpdir='/tmp/'+dirname
 
 # number of iterations, use 1 for testing
 # default popsize=8, use 3 for testing
-iterations=1
-popsize=3
+iterations=25
+popsize=8
 test_size=25
+
+os.chdir(dirname)
+exp=loadconc.CSV_conc_set(exp_name)
 
 P = aju.xml.XMLParam
 #list of parameters to change/optimize
@@ -35,8 +39,6 @@ params = aju.optimize.ParamSet(P('phos_fwd_rate', 0, min=0, max=1, xpath='//Reac
 
 ###################### END CUSTOMIZATION #######################################
 
-exp=loadconc.CSV_conc_set(exp_name)
-
 fitness = nrd_fitness.specie_concentration_fitness(species_list=mol)
 
 ############ Test fitness function
@@ -51,16 +53,13 @@ fit = aju.optimize.Fit(tmpdir, exp, model_set, None, fitness, params,
                        _result_constructor=aju.xml.NeurordResult)
 fit.load()
 fit.do_fit(iterations, popsize=popsize,sigma=0.3)
-#mean_dict,std_dict,CV=converge.iterate_fit(fit,test_size,popsize)
+mean_dict,std_dict,CV=converge.iterate_fit(fit,test_size,popsize)
 
 ########################################### Done with fitting
 
 #to look at centroid [0] or stdev [6] of cloud of good results:
-#to recall names of parameters
-print(fit.param_names())
-print(fit.params.unscale(fit.optimizer.result()[0]))
-print(fit.params.unscale(fit.optimizer.result()[6]))
-
+for i,p in enumerate(fit.params.unscale(fit.optimizer.result()[0])):
+    print(fit.param_names()[i],'=',p, '+/-', fit.params.unscale(fit.optimizer.result()[6])[i])
 
 #to look at fit history
 aju.drawing.plot_history(fit,fit.measurement)
