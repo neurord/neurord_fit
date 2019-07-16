@@ -3,8 +3,8 @@
 
 import ajustador as aju
 import numpy as np
-from ajustador import drawing,loadconc,nrd_fitness
-from ajustador.helpers import converge,save_params
+from ajustador import drawing, loadconc, nrd_fitness
+from ajustador.helpers import converge ,save_params
 import os
 
 dirname='camkii/'  #where data and model file are stored.  Can be different than current directory. Multiple datafiles allowed
