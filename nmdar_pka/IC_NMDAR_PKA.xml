@@ -3,7 +3,7 @@
     <!-- these apply to everything unless overridden -->
     <ConcentrationSet>
      	<NanoMolarity specieID="NMDAR"           value="4000"/>
-       	<NanoMolarity specieID="PKA"       value="9"/>
+	<NanoMolarity specieID="PKAc"       value="9"/>
        	<NanoMolarity specieID="PP2BCaMCa4"      value="1"/>
       	<NanoMolarity specieID="PP1"          value="1150"/>
 

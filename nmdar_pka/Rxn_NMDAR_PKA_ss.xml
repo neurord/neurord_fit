@@ -5,9 +5,11 @@
 <Specie name="pNMDAR" id="pNMDAR" kdiff="0" kdiffunit="mu2/s" />
 <Specie name="PP2BpNMDAR" id="PP2BpNMDAR" kdiff="0" kdiffunit="mu2/s" />
 <Specie name="PP1pNMDAR" id="PP1pNMDAR" kdiff="0" kdiffunit="mu2/s" />
-<Specie name="PP2CaMCa2" id="PP2BCaMCa2" kdiff="0"
+<Specie name="PP2CaMCa4" id="PP2BCaMCa4" kdiff="0"
 	kdiffunit="mu2/s" />
 <Specie name="PP1" id="PP1" kdiff="0" kdiffunit="mu2/s" />
+<Specie name="PKAc" id="PKAc" kdiff="0.836" kdiffunit="mu2/s" />
+
 
 <Reaction name="NMDARPKAc_bind" id="NMDARPKAc_bind">
   <Reactant specieID="NMDAR" />
