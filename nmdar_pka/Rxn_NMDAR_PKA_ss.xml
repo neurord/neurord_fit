@@ -52,7 +52,7 @@
   <Reactant specieID="pNMDAR" />
   <Reactant specieID="PP1" />
   <Product specieID="PP1pNMDAR" />
-  <forwardRate>0.008e-3</forwardRate>
+  <forwardRate>0.017e-6</forwardRate>
   <reverseRate>8e-3</reverseRate>
   <Q10>0.2</Q10>
 </Reaction>
@@ -61,7 +61,7 @@
   <Reactant specieID="PP1pNMDAR" />
   <Product specieID="NMDAR" />
   <Product specieID="PP1" />
-  <forwardRate>1e-3</forwardRate>
+  <forwardRate>2e-3</forwardRate>
   <Q10>0.2</Q10>
 </Reaction>
 </ReactionScheme>
