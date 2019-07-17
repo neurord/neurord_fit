@@ -1,0 +1,17 @@
+<InitialConditions>
+  <!-- these apply to everything unless overridden -->
+  <ConcentrationSet>
+    <NanoMolarity specieID="GluR1" value="8500"/>
+    <NanoMolarity specieID="GluR1_S845" value="1500"/>
+    <NanoMolarity specieID="PKAc"  value="18"/>
+    <NanoMolarity specieID="PP2BCaMCa4" value="1"/>
+    <NanoMolarity specieID="PP1" value="1150"/>
+  </ConcentrationSet>
+  <!-- number densities are in particles per cubic micron. You
+       get about one particles per cubic micron in a 1.6 nM solution -->
+  <!-- surface concentrations for membrane-bound species. The value attribute for
+       a PicoSD element is the number of picomoles per square metre. For comparison
+       with the volume concentrations, a surface density of 1 picomole/m^2, if spread
+       over a layer 1 micron deep, gives a 1 nanoMolar solution, so to average one
+       particle per square micron you need a PicoSD value of about 1.6. -->
+</InitialConditions>

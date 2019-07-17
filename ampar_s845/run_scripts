@@ -1,0 +1,10 @@
+/usr/lib/jvm/java-8-openjdk-amd64/bin/java -jar ../../new_neurord/neurord-3.2.3-all-deps.jar Model-AMPAR_PKA0.xml
+/usr/lib/jvm/java-8-openjdk-amd64/bin/java -jar ../../new_neurord/neurord-3.2.3-all-deps.jar Model-AMPAR_no_PKA0.xml
+/usr/lib/jvm/java-8-openjdk-amd64/bin/java -jar ../../new_neurord/neurord-3.2.3-all-deps.jar Model-AMPAR_2x_PKA0.xml
+python analiza.py Model-AMPAR_PKA0.h5
+python analiza.py Model-AMPAR_no_PKA0.h5
+python analiza.py Model-AMPAR_2x_PKA0.h5
+python make_figures.py Model-AMPAR_PKA0_trial0_dend.txt --output_name=Phos
+python make_figures.py Model-AMPAR_no_PKA0_trial0_dend.txt --output_name=No_phos
+python make_figures.py Model-AMPAR_2x_PKA0_trial0_dend.txt --output_name=Add_phos
+geeqie
