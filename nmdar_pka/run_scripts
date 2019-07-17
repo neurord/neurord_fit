@@ -1,0 +1,5 @@
+/usr/lib/jvm/java-8-openjdk-amd64/bin/java -jar ../../new_neurord/neurord-3.2.3-all-deps.jar -Dneurord.trials=4 Model-NMDAR_PKA0.xml
+/usr/lib/jvm/java-8-openjdk-amd64/bin/java -jar ../../new_neurord/neurord-3.2.3-all-deps.jar -Dneurord.trials=4 Model-NMDAR_no_PKA0.xml
+python ../../stdp_adrenergic_model/analiza.py Model-NMDAR_PKA0.h5 && python ../../stdp_adrenergic_model/make_figures.py Model-NMDAR_PKA0_trial?_dend.txt --output_name=steady_state
+python ../../stdp_adrenergic_model/analiza.py Model-NMDAR_no_PKA0.h5 && python ../../stdp_adrenergic_model/make_figures.py Model-NMDAR_no_PKA0_trial?_dend.txt --output_name=dephosphorylation
+geeqie
