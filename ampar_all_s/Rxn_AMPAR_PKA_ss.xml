@@ -132,8 +132,8 @@
   <Reactant specieID="GluR1" />
   <Reactant specieID="CKCaMCa4" />
   <Product specieID="GluR1_CKCaM" />
-  <forwardRate>96.224e-8</forwardRate>
-  <reverseRate>1.6e-3</reverseRate>
+  <forwardRate>96.224e-9</forwardRate>
+  <reverseRate>1.6e-4</reverseRate>
   <Q10>0.2</Q10>
 </Reaction>
 <!-- GluR1_CKCaM -> GluR1_S831 + CKCaM -->
@@ -149,8 +149,8 @@
   <Reactant specieID="GluR1" />
   <Reactant specieID="CKpCaMCa4" />
   <Product specieID="GluR1_CKpCaM" />
-  <forwardRate>32.78e-8</forwardRate>
-  <reverseRate>2e-3</reverseRate>
+  <forwardRate>32.78e-9</forwardRate>
+  <reverseRate>2e-4</reverseRate>
   <Q10>0.2</Q10>
 </Reaction>
 <!-- GluR1_CKpCaM -> GluR1_S831 + CKpCaM -->
@@ -166,8 +166,8 @@
   <Reactant specieID="GluR1" />
   <Reactant specieID="CKp" />
   <Product specieID="GluR1_CKp" />
-  <forwardRate>16.224e-8</forwardRate>
-  <reverseRate>1.6e-3</reverseRate>
+  <forwardRate>32.224e-9</forwardRate>
+  <reverseRate>2e-4</reverseRate>
   <Q10>0.2</Q10>
 </Reaction>
 
@@ -183,8 +183,8 @@
   <Reactant specieID="GluR1_S831" />
   <Reactant specieID="PP1" />
   <Product specieID="GluR1_S831_PP1" />
-  <forwardRate>8.75e-5</forwardRate>
-  <reverseRate>14e-2</reverseRate>
+  <forwardRate>8.75e-6</forwardRate>
+  <reverseRate>14e-3</reverseRate>
   <Q10>0.2</Q10>
 </Reaction>
 <!-- GluR1_S831_PP1 -> GluR1 + PP1 -->
@@ -220,7 +220,7 @@
   <Reactant specieID="GluR1" />
   <Reactant specieID="CKpCaMCa4" />
   <Product specieID="GluR1_CKpCaM2" />
-  <forwardRate>160.78e-9</forwardRate>
+  <forwardRate>320.78e-9</forwardRate>
   <reverseRate>2e-4</reverseRate>
   <Q10>0.2</Q10>
 </Reaction>
@@ -237,8 +237,8 @@
   <Reactant specieID="GluR1" />
   <Reactant specieID="CKp" />
   <Product specieID="GluR1_CKp2" />
-  <forwardRate>160.224e-9</forwardRate>
-  <reverseRate>1.6e-4</reverseRate>
+  <forwardRate>320.224e-9</forwardRate>
+  <reverseRate>2e-4</reverseRate>
   <Q10>0.2</Q10>
 </Reaction>
 
@@ -254,8 +254,8 @@
   <Reactant specieID="GluR1_S567" />
   <Reactant specieID="PP1" />
   <Product specieID="GluR1_S567_PP1" />
-  <forwardRate>8.75e-5</forwardRate>
-  <reverseRate>14e-2</reverseRate>
+  <forwardRate>8.75e-6</forwardRate>
+  <reverseRate>14e-3</reverseRate>
   <Q10>0.2</Q10>
 </Reaction>
 <!-- GluR1_S567_PP1 -> GluR1 + PP1 -->
@@ -263,7 +263,7 @@
   <Reactant specieID="GluR1_S567_PP1" />
   <Product specieID="GluR1" />
   <Product specieID="PP1" />
-  <forwardRate>1e-3</forwardRate>
+  <forwardRate>0.4e-3</forwardRate>
   <Q10>0.2</Q10>
 </Reaction>
 
@@ -273,8 +273,8 @@
   <Reactant specieID="GluR1_S845" />
   <Reactant specieID="CKCaMCa4" />
   <Product specieID="GluR1_S845_CKCaM2" />
-  <forwardRate>96.224e-8</forwardRate>
-  <reverseRate>1.6e-3</reverseRate>
+  <forwardRate>96.224e-9</forwardRate>
+  <reverseRate>1.6e-4</reverseRate>
   <Q10>0.2</Q10>
 </Reaction>
 <!-- GluR1_S845_CKCaM -> GluR1_S845_S831 + CKCaM -->
@@ -292,8 +292,8 @@ id="GluR1_S845_CKpCaM_bind">
   <Reactant specieID="GluR1_S845" />
   <Reactant specieID="CKpCaMCa4" />
   <Product specieID="GluR1_S845_CKpCaM2" />
-  <forwardRate>32.78e-8</forwardRate>
-  <reverseRate>2e-3</reverseRate>
+  <forwardRate>32.78e-9</forwardRate>
+  <reverseRate>2e-4</reverseRate>
   <Q10>0.2</Q10>
 </Reaction>
 <!-- GluR1_S845_CKpCaM -> GluR1_S845_S831 + CKpCaM -->
@@ -311,8 +311,8 @@ id="GluR1_S845_CKpCaM_diss">
   <Reactant specieID="GluR1_S845" />
   <Reactant specieID="CKp" />
   <Product specieID="GluR1_S845_CKp2" />
-  <forwardRate>32.224e-8</forwardRate>
-  <reverseRate>1e-3</reverseRate>
+  <forwardRate>32.224e-9</forwardRate>
+  <reverseRate>1e-4</reverseRate>
   <Q10>0.2</Q10>
 </Reaction>
 <!-- GluR1_CKp -> GluR1_S845_S831 + CKp -->
@@ -400,7 +400,7 @@ id="GluR1_S845_S831_PP1_bind">
 <Reaction name="GluR1_S845_S831_PP1_diss"
 id="GluR1_S845_S831_PP1_diss">
   <Reactant specieID="GluR1_S845_S831_PP1" />
-  <Product specieID="GluR1_S845" />
+  <Product specieID="GluR1_S831" />
   <Product specieID="PP1" />
   <forwardRate>1e-3</forwardRate>
   <Q10>0.2</Q10>
@@ -411,8 +411,8 @@ id="GluR1_S845_S831_PP1_bind2">
   <Reactant specieID="GluR1_S845_S831" />
   <Reactant specieID="PP1" />
   <Product specieID="GluR1_S845_S831_PP1_2" />
-  <forwardRate>8.75e-5</forwardRate>
-  <reverseRate>14e-2</reverseRate>
+  <forwardRate>8.75e-6</forwardRate>
+  <reverseRate>14e-3</reverseRate>
   
   <Q10>0.2</Q10>
 </Reaction>
@@ -420,7 +420,7 @@ id="GluR1_S845_S831_PP1_bind2">
 <Reaction name="GluR1_S845_S831_PP1_diss2"
 id="GluR1_S845_S831_PP1_diss2">
   <Reactant specieID="GluR1_S845_S831_PP1_2" />
-  <Product specieID="GluR1_S831" />
+  <Product specieID="GluR1_S845" />
   <Product specieID="PP1" />
   <forwardRate>1e-3</forwardRate>
   <Q10>0.2</Q10>
@@ -444,9 +444,9 @@ id="GluR1_S845_S567_PP1_bind">
 <Reaction name="GluR1_S845_S567_PP1_diss"
 id="GluR1_S845_S567_PP1_diss">
   <Reactant specieID="GluR1_S845_S567_PP1" />
-  <Product specieID="GluR1_S845" />
+  <Product specieID="GluR1_S567" />
   <Product specieID="PP1" />
-  <forwardRate>1e-3</forwardRate>
+  <forwardRate>0.1e-3</forwardRate>
   <Q10>0.2</Q10>
 </Reaction>
 
@@ -455,8 +455,8 @@ id="GluR1_S845_S567_PP1_bind2">
   <Reactant specieID="GluR1_S845_S567" />
   <Reactant specieID="PP1" />
   <Product specieID="GluR1_S845_S567_PP1_2" />
-  <forwardRate>8.75e-5</forwardRate>
-  <reverseRate>14e-2</reverseRate>
+  <forwardRate>8.75e-6</forwardRate>
+  <reverseRate>14e-3</reverseRate>
   
   <Q10>0.2</Q10>
 </Reaction>
@@ -464,9 +464,9 @@ id="GluR1_S845_S567_PP1_bind2">
 <Reaction name="GluR1_S845_S567_PP1_diss2"
 id="GluR1_S845_S567_PP1_diss2">
   <Reactant specieID="GluR1_S845_S567_PP1_2" />
-  <Product specieID="GluR1_S567" />
+  <Product specieID="GluR1_S845" />
   <Product specieID="PP1" />
-  <forwardRate>1e-3</forwardRate>
+  <forwardRate>0.4e-3</forwardRate>
   <Q10>0.2</Q10>
 </Reaction>
 
