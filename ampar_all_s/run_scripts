@@ -1,0 +1,7 @@
+/usr/lib/jvm/java-8-openjdk-amd64/bin/java -jar ../../new_neurord/neurord-3.2.3-all-deps.jar Model-AMPAR_CaMKII_ss0.xml
+/usr/lib/jvm/java-8-openjdk-amd64/bin/java -jar ../../new_neurord/neurord-3.2.3-all-deps.jar Model-AMPAR_CaMKIIp_ss0.xml
+python analiza.py Model-AMPAR_CaMKII_ss0.h5
+python analiza.py Model-AMPAR_CaMKIIp_ss0.h5
+python make_figures.py Model-AMPAR_CaMKII_ss0_trial0_dend.txt --output_name=steady_state
+python make_figures.py Model-AMPAR_CaMKIIp_ss0_trial0_dend.txt --output_name=steady_state_just_pCaMKII
+geeqie

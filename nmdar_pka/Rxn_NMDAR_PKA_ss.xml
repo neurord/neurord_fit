@@ -15,7 +15,7 @@
   <Reactant specieID="NMDAR" />
   <Reactant specieID="PKAc" />
   <Product specieID="PKAcNMDAR" />
-  <forwardRate>0.0212e-3</forwardRate>
+  <forwardRate>0.0232e-3</forwardRate>
   <reverseRate>720e-3</reverseRate>
   <Q10>0.2</Q10>
 </Reaction>
@@ -35,7 +35,7 @@
   <Reactant specieID="pNMDAR" />
   <Reactant specieID="PP2BCaMCa4" />
   <Product specieID="PP2BpNMDAR" />
-  <forwardRate>1.6e-3</forwardRate>
+  <forwardRate>3.2e-3</forwardRate>
   <reverseRate>1600e-3</reverseRate>
   <Q10>0.2</Q10>
 </Reaction>
