@@ -15,29 +15,31 @@ from ajustador import drawing,loadconc,nrd_fitness
 from ajustador.helpers import converge,save_params
 import os
 
-dirname='fret_cAMP/'  #where data and model file are stored.  Can be different than current directory. Multiple datafiles allowed
+dirname = 'fret_cAMP/'  #where data and model file are stored.  Can be different than current directory. Multiple datafiles allowed
 #model_set is the set of xml files that contains the neuroRD model to simulate and adjust parameters
 #Note that larger volumes take longer to simulate, so use small depth2D for optimization
-model_set='Model_VinceCaPKAsubset_ACsame-dia'
-exp_name='FretPercent' #name of data file selected from dirname; each file may contain several molecules
-mol=['Epac1cAMP'] #which molecule(s) to match in optimization
-tmpdir='/tmp/tmp'#AC_PDEsame_'+dirname
-start_stim=140  #time of onset of stimulation, in seconds; should be able to extract from model files; stim time must match data
-norm_method='percent' #convert molecule concentration into a percent change from baseline.  Use for comparing to FRET data
+model_set = 'Model_VinceCaPKAsubset_ACsame-dia'
+exp_name = 'FretPercent' #name of data file selected from dirname; each file may contain several molecules
+mol = ['Epac1cAMP'] #which molecule(s) to match in optimization
+tmpdir = '/tmp/tmp'#AC_PDEsame_'+dirname
+start_stim = 140  #time of onset of stimulation, in seconds; should be able to extract from model files; stim time must match data
+norm_method = 'percent' #convert molecule concentration into a percent change from baseline.  Use for comparing to FRET data
 
 # number of iterations, use 1 for testing
 # default popsize=8, use 3 for testing
-iterations=1#50
-popsize=3#6 # reduce from 8 to avoid saturating processors for longer neurord simulations
-test_size=0#25
+iterations = 1#50
+popsize = 3#6 # reduce from 8 to avoid saturating processors for longer neurord simulations
+test_size = 0#25
 
 os.chdir(dirname)
 #this command indicates that experimental data are concentration in csv formatted files
-exp=loadconc.CSV_conc_set(exp_name,stim_time=start_stim)
-
-#exp = aju.xml.NeurordResult(model_set,stim_time=start_stim)
+exp=loadconc.CSV_conc_set(exp_name,
+                          stim_time=start_stim)
+print(exp)
+#exp = aju.xml.NeurordResult(model_set, stim_time=start_stim)
 
 P = aju.xml.XMLParam
+print(P)
 #list of parameters to change/optimize
 #improvement: allow rate (multiply all kf,kb,kcat) or KM (vary what? Kb?)
 params = aju.optimize.ParamSet(P('phospLRGs_fwd_rate', 0.00125e-3, min=0.0001e-3, max=0.1e-3, xpath='//Reaction[@id="phospLRGs1"]/forwardRate'),
@@ -54,13 +56,15 @@ params = aju.optimize.ParamSet(P('phospLRGs_fwd_rate', 0.00125e-3, min=0.0001e-3
                                P('pPDE4_conc', 50, min=1,max=1000,xpath='//NanoMolarity[@specieID="pPDE4"]'))
 
 ###################### END CUSTOMIZATION #######################################
-fitness = nrd_fitness.specie_concentration_fitness(species_list=mol,norm=norm_method)
+fitness = nrd_fitness.specie_concentration_fitness(species_list=mol,
+                                                   norm=norm_method)
 fit = aju.optimize.Fit(tmpdir, exp, model_set, None, fitness, params,
                        _make_simulation=aju.xml.NeurordSimulation.make,
                        _result_constructor=aju.xml.NeurordResult)
 fit.load()
+print(fit.model)
 #fit.do_fit(iterations, popsize=popsize,sigma=0.3)
-fit.do_fit(iterations, popsize=popsize,seed=62839)
+fit.do_fit(iterations, popsize=popsize, seed=62839)
 #mean_dict,std_dict,CV=converge.iterate_fit(fit,test_size,popsize)
 
 ########################################### Done with fitting, look at results
