@@ -11,7 +11,7 @@
 <Specie name="PKAc" id="PKAc" kdiff="0.836" kdiffunit="mu2/s" />
 
 
-<Reaction name="NMDARPKAc_bind" id="NMDARPKAc_bind">
+<Reaction name="NMDARPKAc_bind" id="bindNMDARPKAc">
   <Reactant specieID="NMDAR" />
   <Reactant specieID="PKAc" />
   <Product specieID="PKAcNMDAR" />
@@ -21,17 +21,18 @@
 </Reaction>
 
 <!-- NMDAR_PKAc -> pNMDAR + PKAc -->
-<Reaction name="pNMDARPKAc_reac" id="pNMDARPKAc_reac">
+<Reaction name="pNMDARPKAc_reac" id="reacpNMDARPKAc">
   <Reactant specieID="PKAcNMDAR" />
   <Product specieID="pNMDAR" />
   <Product specieID="PKAc" />
   <forwardRate>6.e-3</forwardRate>
+  <reverseRate>0</reverseRate>
   <Q10>0.2</Q10>
 </Reaction>
 
 <!--12) pNMDAR + PP2B
         <-> PP2BpNMDAR -->
-<Reaction name="pNMDARPP2B_bind" id="pNMDARPP2B_bind">
+<Reaction name="pNMDARPP2B_bind" id="bindpNMDARPP2B">
   <Reactant specieID="pNMDAR" />
   <Reactant specieID="PP2BCaMCa4" />
   <Product specieID="PP2BpNMDAR" />
@@ -40,15 +41,16 @@
   <Q10>0.2</Q10>
 </Reaction>
 <!-- PP2BpNMDAR -> NMDAR + PP2B -->
-<Reaction name="pNMDARPP2B_reac" id="pNMDARPP2B_reac">
+<Reaction name="pNMDARPP2B_reac" id="reacpNMDARPP2B">
   <Reactant specieID="PP2BpNMDAR" />
   <Product specieID="NMDAR" />
   <Product specieID="PP2BCaMCa4" />
   <forwardRate>2e-3</forwardRate>
+  <reverseRate>0</reverseRate>
   <Q10>0.2</Q10>
 </Reaction>
 
-<Reaction name="pNMDARPP1_bind" id="pNMDARPP1_bind">
+<Reaction name="pNMDARPP1_bind" id="bindpNMDARPP1">
   <Reactant specieID="pNMDAR" />
   <Reactant specieID="PP1" />
   <Product specieID="PP1pNMDAR" />
@@ -57,11 +59,12 @@
   <Q10>0.2</Q10>
 </Reaction>
 <!-- PP2BpNMDAR -> NMDAR + PP2B -->
-<Reaction name="pNMDARPP1_reac" id="pNMDARPP1_reac">
+<Reaction name="pNMDARPP1_reac" id="reacpNMDARPP1">
   <Reactant specieID="PP1pNMDAR" />
   <Product specieID="NMDAR" />
   <Product specieID="PP1" />
   <forwardRate>2e-3</forwardRate>
+  <reverseRate>0</reverseRate>
   <Q10>0.2</Q10>
 </Reaction>
 </ReactionScheme>
