@@ -6,7 +6,7 @@ How to use :doc:`ajustador` to fit a NeuroRD model
    a. neurord/ajustador
    b. neurord/neurord_fit
       
-2. get neurord-3.2.3-all-deps.jar from neurord/stochdiff/releases
+2. get neurord-3.2.4-all-deps.jar from neurord/stochdiff/releases
 3. Get into python3 as follows:
    
    PYTHONPATH=$PYTHONPATH:/full/path/to/ajustador/:/full/path/to/neurord_fit/ python3
@@ -47,6 +47,8 @@ A. To use this to optimize rate constants for other reaction files, do the follo
 5. Optimization can match a set of different model and experimental files.  Set of files should have 1st part of filename in common, and differ only by the suffix.  The model files need to have matching suffixes, e.g.
    
    - model_stim1.xml, model_stim2.xml, exp_stim1.csv, exp_stim2.csv
+   
+6. After running the optimization, the parameter values are in the file outcmaesrecentbest.dat, which also contains the fitness value. The order of parameters is the same as specified in the params= ... line in the neurord_fit.py file. The best parameter values are in the last line in outcmaesrecentbest.dat, or the line with the smallest fitness value.
 
 B. Examples in the repo
 
