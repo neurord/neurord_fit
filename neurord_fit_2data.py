@@ -58,8 +58,12 @@ mean_dict,std_dict,CV=converge.iterate_fit(fit,test_size,popsize)
 ########################################### Done with fitting
 
 #to look at centroid [0] or stdev [6] of cloud of good results:
-for i,p in enumerate(fit.params.unscale(fit.optimizer.result()[0])):
-    print(fit.param_names()[i],'=',p, '+/-', fit.params.unscale(fit.optimizer.result()[6])[i])
+if callable(fit.optimizer.result):
+    result=fit.optimizer.result()
+else:
+    result=fit.optimizer.result
+for i,p in enumerate(fit.params.unscale(result[0])):
+        print(fit.param_names()[i],'=',p, '+/-', fit.params.unscale(result[6])[i])
 
 #to look at fit history
 aju.drawing.plot_history(fit,fit.measurement)
