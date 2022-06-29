@@ -18,9 +18,9 @@ tmpdir='/tmp/'+dirname
 
 # number of iterations, use 1 for testing
 # default popsize=8, use 3 for testing
-iterations=25
+iterations=10#25
 popsize=8
-test_size=25
+test_size=0#25
 
 os.chdir(dirname)
 exp=loadconc.CSV_conc_set(exp_name)
@@ -28,13 +28,13 @@ exp=loadconc.CSV_conc_set(exp_name)
 P = aju.xml.XMLParam
 #list of parameters to change/optimize
 params = aju.optimize.ParamSet(P('phos_fwd_rate', 0, min=0, max=1, xpath='//Reaction[@id="CKpCamCa4+SynGap--CKpCamCa4SynGap"]/forwardRate'),
-                               P('phos_rev_rate', 0, min=0, max=1, xpath='//Reaction[@id="CKpCamCa4+SynGap--CKpCamCa4SynGap"]/reverseRate'),
+                               P('phos_rev_rate', 0, fixed='phos_kcat_rate', constant=4, xpath='//Reaction[@id="CKpCamCa4+SynGap--CKpCamCa4SynGap"]/reverseRate'),
                                P('phos_kcat_rate', 0, min=0, max=1, xpath='//Reaction[@id="CKpCamCa4SynGap--CKpCamCa4+pSynGap"]/forwardRate'),
-                               P('gap_kf_rate', 0, min=0,max=1,xpath='//Reaction[@id="RasGTP+SynGap--RasGTPGap"]/forwardRate'),
-                               P('gap_kb_rate', 0, min=0,max=1,xpath='//Reaction[@id="RasGTP+SynGap--RasGTPGap"]/reverseRate'),
+                               P('gap_kf_rate', 0, fixed='gap_kcat_rate', constant= 5./4000, xpath='//Reaction[@id="RasGTP+SynGap--RasGTPGap"]/forwardRate'),
+                               P('gap_kb_rate', 0, fixed='gap_kcat_rate', constant=4, xpath='//Reaction[@id="RasGTP+SynGap--RasGTPGap"]/reverseRate'),
                                P('gap_kcat_rate', 0, min=0,max=1,xpath='//Reaction[@id="RasGTPGap--SynGap+RasGDP"]/forwardRate'),
                                P('Pgap_kf_rate', 0, min=0,max=1,xpath='//Reaction[@id="RasGTP+pSynGap--RasGTPGap"]/forwardRate'),
-                               P('Pgap_kb_rate', 0, min=0,max=1,xpath='//Reaction[@id="RasGTP+pSynGap--RasGTPGap"]/reverseRate'),
+                               P('Pgap_kb_rate', 0, fixed='Pgap_kcat_rate', constant=4, xpath='//Reaction[@id="RasGTP+pSynGap--RasGTPGap"]/reverseRate'),
                                P('Pgap_kcat_rate', 0, min=0,max=1,xpath='//Reaction[@id="RasGTPGap--pSynGap+RasGDP"]/forwardRate'))
 
 ###################### END CUSTOMIZATION #######################################
