@@ -27,6 +27,7 @@ norm_method = 'percent' #convert molecule concentration into a percent change fr
 
 # number of iterations, use 1 for testing
 # default popsize=8, use 3 for testing
+
 iterations = 1#50
 popsize = 3#6 # reduce from 8 to avoid saturating processors for longer neurord simulations
 test_size = 0#25
@@ -42,18 +43,12 @@ P = aju.xml.XMLParam
 print(P)
 #list of parameters to change/optimize
 #improvement: allow rate (multiply all kf,kb,kcat) or KM (vary what? Kb?)
-params = aju.optimize.ParamSet(P('phospLRGs_fwd_rate', 0.00125e-3, min=0.0001e-3, max=0.1e-3, xpath='//Reaction[@id="phospLRGs1"]/forwardRate'),
-                               P('phospLRGs_bak_rate', 0.16e-3, min=0.01e-3,max=1e-3,xpath='//Reaction[@id="phospLRGs1"]/reverseRate'),
-                               P('phospLRGs_cat_rate', 0.04e-3, min=0.001e-3,max=1e-3,xpath='//Reaction[@id="phospLRGs2"]/forwardRate'),
-                               P('dphospD1R_fwd_rate', 0.003e-3, min=0.0001e-3,max=0.1e-3,xpath='//Reaction[@id="dphospD1R"]/forwardRate'),
-                               P('GasGTP_hydrolysis', 0.5e-3, min=0.01e-3,max=5e-3,xpath='//Reaction[@id="GasGTP_disso"]/forwardRate'),
-                               P('AC1_GasGTP_GAP', 1e-3, min=0.01e-3,max=10e-3,xpath='//Reaction[@id="AC1_GasGTP_GAP"]/forwardRate'),
-                               P('dphospPDE4_fwd_rate', 0.00625e-3, min=0.0001e-3,max=0.1e-3,xpath='//Reaction[@id="dphospPDE4"]/forwardRate'),
-                               P('AC1_dens', 1000, min=1,max=10e3,xpath='//PicoSD[@specieID="AC1"]'),
-                               P('AC1CamATP_dens', 200, min=1,max=1000,xpath='//PicoSD[@specieID="AC1CamCa4ATP"]'),
+params = aju.optimize.ParamSet(P('AC1_dens', 1000, min=1,max=10e3,xpath='//PicoSD[@specieID="AC1"]'),
+                               P('AC1CamATP_dens', 200, fixed='AC1_dens', constant=0.2, xpath='//PicoSD[@specieID="AC1CamCa4ATP"]'),
+                               P('CamCa4', 1000, fixed={'molecules':['AC1CamATP_dens'],'radius':1.5}, constant=1000, xpath='//NanoMolarity[@specieID="CamCa4"]'),
                                P('AC5_dens', 200, min=1,max=1000,xpath='//PicoSD[@specieID="AC5"]'),
                                P('PDE4_conc', 1000, min=1,max=10e3,xpath='//NanoMolarity[@specieID="PDE4"]'),
-                               P('pPDE4_conc', 50, min=1,max=1000,xpath='//NanoMolarity[@specieID="pPDE4"]'))
+                               P('pPDE4_conc', 50, fixed='PDE4_conc', constant=0.05, xpath='//NanoMolarity[@specieID="pPDE4"]'))
 
 ###################### END CUSTOMIZATION #######################################
 fitness = nrd_fitness.specie_concentration_fitness(species_list=mol,
@@ -73,8 +68,12 @@ fit.do_fit(iterations, popsize=popsize, seed=62839)
 aju.drawing.plot_history(fit,fit.measurement,Norm='percent')
 
 #to look at centroid [0] or stdev [6] of cloud of good results:
-for i,p in enumerate(fit.params.unscale(fit.optimizer.result()[0])):
-    print(fit.param_names()[i],'=',p, '+/-', fit.params.unscale(fit.optimizer.result()[6])[i])
+if callable(fit.optimizer.result):
+    result=fit.optimizer.result()
+else:
+    result=fit.optimizer.result
+for i,p in enumerate(fit.params.unscale(result[0])):
+    print(fit.param_names()[i],'=',p, '+/-', fit.params.unscale(result[6])[i])
 
 save_params.save_params(fit,0,1)
 ''' Results
