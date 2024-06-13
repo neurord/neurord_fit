@@ -90,7 +90,11 @@ How to use :doc:`ajustador` to fit a NeuroRD model
          d. specify fitness=nrd_fitness.specie_concentration_fitness(species_list=mol,start=start_stim,norm=norm_method).
             - in fitness function, default normalization divides the difference between model and data by the peak
       
-      4. fitness function can match a set of molecules - specify mol=['mol1','mol2']
+      4. fitness function can match a set of molecules, each of which can be the sum of molecule species
+		- specify the molecules as a dictionary:mol={'mol1':['mol1'],'mol2':['subspeciesA', 'subspeciesB']}
+		- the key matches the data to optimize (e.g. the name of the molecule in the csv data file)
+		- the value is a list of subspecies to sum
+
       5. Optimization can match a set of different model and experimental files.  Set of files should have 1st part of filename in common, and differ only by the suffix.  The model files need to have matching suffixes, e.g.
    
          - model_stim1.xml, model_stim2.xml, exp_stim1.csv, exp_stim2.csv
