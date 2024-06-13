@@ -56,7 +56,11 @@ fit.do_fit(iterations, popsize=popsize, sigma=0.3)
 aju.drawing.plot_history(fit, fit.measurement, Norm='percent')
 
 #to look at centroid [0] or stdev [6] of cloud of good results:
-for i,p in enumerate(fit.params.unscale(fit.optimizer.result()[0])):
-    print(fit.param_names()[i],'=',p, '+/-', fit.params.unscale(fit.optimizer.result()[6])[i])
+if callable(fit.optimizer.result):
+        result = fit.optimizer.result()
+    else:
+        result = fit.optimizer.result
+for i,p in enumerate(fit.params.unscale(result[0])):
+    print(fit.param_names()[i],'=',p, '+/-', fit.params.unscale(result[6])[i])
 
 save_params.save_params(fit,0,1)
