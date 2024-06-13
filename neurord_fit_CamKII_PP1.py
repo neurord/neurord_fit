@@ -11,7 +11,7 @@ dirname='camkii/'  #where data and model file are stored.  Can be different than
 #Set of model files that have first part of file name in common.  All included files must be in same directory.
 model_set='Model-CKnew4p-ss'
 exp_set='Model-CKnew-ss0_1.5x' #set of data files corresponding to model files; files may contain several molecules
-mol=['CKpCamCa4','CKCamCa4','CKp',] #which molecule(s) to match in optimization
+mol={"CaMKII": ['CKpCamCa4','CKCamCa4','CKp',]} #which molecule(s) to match in optimization
 tmpdir='/tmp/PP1_4p'+dirname 
 os.chdir(dirname)
 

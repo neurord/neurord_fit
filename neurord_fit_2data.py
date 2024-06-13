@@ -13,7 +13,7 @@ import os
 dirname='syngap_ras/'  #where data and model are stored.  Multiple datafiles allowed
 model_set='Model_syngap_ras'
 exp_name='walkup_JBC_2015' #name of data file selected from dirname; each file may contain several molecules
-mol=['pSynGap','RasGDP'] #which molecule(s) to match in optimization
+mol={'pSynGAP':['pSynGap'],'RasGAP': ['RasGDP']} #which molecule(s) to match in optimization
 tmpdir='/tmp/'+dirname
 
 # number of iterations, use 1 for testing

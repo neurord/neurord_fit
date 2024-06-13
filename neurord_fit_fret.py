@@ -20,7 +20,7 @@ dirname = 'fret_cAMP/'  #where data and model file are stored.  Can be different
 #Note that larger volumes take longer to simulate, so use small depth2D for optimization
 model_set = 'Model_VinceCaPKAsubset_ACsame-dia'
 exp_name = 'FretPercent' #name of data file selected from dirname; each file may contain several molecules
-mol = ['Epac1cAMP'] #which molecule(s) to match in optimization
+mol = {'Epac1cAMP': ['Epac1cAMP']} #which molecule(s) to match in optimization
 tmpdir = '/tmp/tmp'#AC_PDEsame_'+dirname
 start_stim = 140  #time of onset of stimulation, in seconds; should be able to extract from model files; stim time must match data
 norm_method = 'percent' #convert molecule concentration into a percent change from baseline.  Use for comparing to FRET data

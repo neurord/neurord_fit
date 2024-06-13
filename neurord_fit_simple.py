@@ -9,7 +9,7 @@ model_set='Model_simple'
 #name of experimental data, a simulation file in this case
 exp_set='Model_simple'
 #molecule to compare between 'experiments' and simulations
-mol=['buf','glu']
+mol={'glu':['glu'], 'buf':['buf']}
 #directory to store output during optimization
 tmpdir='/tmp/fit'
 
